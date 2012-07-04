@@ -14,10 +14,10 @@ describe 'Echo', ->
     Echo.should.exist
 
   it 'should be function', ->
-    Echo.should.be.function
+    Echo.should.be.a 'function'
 
   it 'should returns function', ->
-    Echo().should.be.function
+    Echo().should.be.a 'function'
 
 
   e = null
@@ -31,9 +31,9 @@ describe 'Echo', ->
     it 'should log strings', ->
       e('test')
       log = e.logs.all()[0]
-      log.should.be.object
-      log.body.should.be.array
-      log.body[0].should == 'test'
+      log.should.be.a 'object'
+      log.body.should.be.an('array')
+      log.body[0].should.eq 'test1'
 
 
   describe '#logs', ->
@@ -42,7 +42,7 @@ describe 'Echo', ->
       e.logs.should.exist
 
     it 'should be object', ->
-      e.logs.should.be.object
+      e.logs.should.be.a 'object'
 
 
     describe '#all()', ->
@@ -51,14 +51,14 @@ describe 'Echo', ->
         e.logs.all.should.exist
 
       it 'should be function', ->
-        e.logs.all.should.be.function
+        e.logs.all.should.be.a 'function'
 
       it 'should returns all logs', ->
         e('test1')
         e('test2')
         allLogs = e.logs.all()
-        allLogs[0].body[0].should == 'test1'
-        allLogs[1].body[0].should == 'test2'
+        allLogs[0].body[0].should.eq 'test1'
+        allLogs[1].body[0].should.eq 'test2'
 
 
   describe '#defaultOptions', ->
@@ -67,22 +67,22 @@ describe 'Echo', ->
       e.defaultOptions.should.exist
 
     it 'should be object', ->
-      e.defaultOptions.should.be.object
+      e.defaultOptions.should.be.a 'object'
 
     it 'should containt default options', ->
-      e.defaultOptions.level.should           == 0
-      e.defaultOptions.namespace.should       == ''
-      e.defaultOptions.namespacePrefix.should == ''
+      e.defaultOptions.level.should.eq           0
+      e.defaultOptions.namespace.should.eq       ''
+      e.defaultOptions.namespacePrefix.should.eq ''
 
     it 'should apply default options to each log', ->
       e('test1')
       log = e.logs.all()[0]
-      log.level.should == e.defaultOptions.level
+      log.level.should.eq e.defaultOptions.level
       namespace = ''
       unless _(e.defaultOptions.namespacePrefix).isEmpty()
         namespace += e.defaultOptions.namespacePrefix + '.'
       namespace += e.defaultOptions.namespace
-      log.namespace == namespace
+      log.namespace.should.eq namespace
 
 
   describe '#curry()', ->
@@ -91,7 +91,7 @@ describe 'Echo', ->
       e.curry.should.exist
 
     it 'should return function', ->
-      e.curry().should.be.function
+      e.curry().should.be.a 'function'
 
     it 'should return carried function', ->
 
@@ -102,7 +102,7 @@ describe 'Echo', ->
       e.define.should.exist
 
     it 'should be function', ->
-      e.define.should.be.function
+      e.define.should.be.a 'function'
 
     it 'should add new function to echo'
 

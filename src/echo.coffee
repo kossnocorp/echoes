@@ -5,13 +5,26 @@ Echo = (dump) ->
   # Empty logs array
   logs = []
 
-  isOptions = ->
+  isOptions = (object) ->
+    _(object).isObject() and  _(object)
+                                .chain()
+                                .keys()
+                                .difference(
+                                  _(echo.defaultOptions).keys()
+                                )
+                                .value().length == 0
 
   # Main log function
   echo = (body...) ->
+    options = if isOptions(possibleOptions = _(body).last())
+      possibleOptions
+    else
+      {}
+
     logs.push \
       _({}).extend \
         echo.defaultOptions,
+        options,
         body:      body
         timestamp: (new Date()).getTime()
 

@@ -178,10 +178,10 @@ describe 'Echo', ->
       e.info.should.exist
       e.info.should.be.a 'function'
       e.define(warn: 2, error: 3)
-      e.info.warn.exist
-      e.info.warn.be.a 'function'
-      e.info.error.exist
-      e.info.error.be.a 'function'
+      e.warn.exist
+      e.warn.should.be.a 'function'
+      e.error.should.exist
+      e.error.should.be.a 'function'
 
     it 'should return curried function with defined level', ->
       e.define('info', 1)

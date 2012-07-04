@@ -15,12 +15,19 @@ Echo = (dump) ->
                                 )
                                 .value().length == 0
 
+  # Extact body and options from possibleBody
+  extractBodyAndOptions = (possibleBody) ->
+    if isOptions(possibleOptions = _(possibleBody).last())
+      [
+        _(possibleBody).initial(),
+        possibleOptions
+      ]
+    else
+      [possibleBody, {}]
+
   # Main log function
   echo = (possibleBody...) ->
-    [options, body] = if isOptions(possibleOptions = _(possibleBody).last())
-      [possibleOptions, _(possibleBody).first(possibleBody.length - 1)]
-    else
-      [{}, possibleBody]
+    [body, options] = extractBodyAndOptions(possibleBody)
 
     logs.push \
       _({}).extend \
@@ -45,8 +52,14 @@ Echo = (dump) ->
     namespacePrefix: ''
 
   # Returns carried function
-  echo.curry = ->
-    echo
+  echo.curry = (curriedOptions) ->
+    (possibleBody...) ->
+      [body, options] = extractBodyAndOptions(possibleBody)
+      echo.apply \
+        echo,
+        _(body).union \
+          [_({}).extend(curriedOptions, options)]
+
 
   # Define new level
   echo.define = ->

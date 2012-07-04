@@ -8,10 +8,9 @@ Echo = (dump) ->
   isOptions = ->
 
   # Main log function
-  echo = (options...) ->
-    logs.push
-      body: options
-
+  echo = (body...) ->
+    logs.push \
+      _(echo.defaultOptions).extend(body: body)
 
   # Logs API
   echo.logs =

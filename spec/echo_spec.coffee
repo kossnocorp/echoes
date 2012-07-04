@@ -74,6 +74,16 @@ describe 'Echo', ->
       e.defaultOptions.namespace.should       == ''
       e.defaultOptions.namespacePrefix.should == ''
 
+    it 'should apply default options to each log', ->
+      e('test1')
+      log = e.logs.all()[0]
+      log.level.should == e.defaultOptions.level
+      namespace = ''
+      unless _(e.defaultOptions.namespacePrefix).isEmpty()
+        namespace += e.defaultOptions.namespacePrefix + '.'
+      namespace += e.defaultOptions.namespace
+      log.namespace == namespace
+
 
   describe '#curry()', ->
 

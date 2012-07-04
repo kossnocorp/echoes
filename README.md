@@ -12,7 +12,7 @@ Echo.js is your choose, bro!
 
 ``` coffeescript
 echo       'You'      # => Level of importance is 0
-echo.debug 'are'      # => … is 0 (echo is alias to echo.debug)
+echo.debug 'are'      # => … is 0
 echo.info  'awesome,' # => … is 1
 echo.warn  'my'       # => … is 2
 echo.error 'friend!'  # => … is 3
@@ -23,6 +23,14 @@ echo('Good news!', level: 3)       # => … is 3
 echo('Good news!', level: 'error') # => … is 3
 ```
 
+### Get logs
+
+To get all logs (array of log objects):
+
+``` coffeescript
+echo.logs.all()
+```
+
 ### Define custom levels
 
 ``` coffeescript
@@ -30,6 +38,10 @@ echo.shitHappened # => undefined
 echo.define(shitHappened: 8)
 echo.shitHappened # Log function with level of importance equal to 8
 ```
+
+### Currying
+
+You can create curried function with predefined options, like `level`, `namespacePrefix` etc
 
 ## Changelog
 

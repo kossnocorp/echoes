@@ -52,12 +52,16 @@ Echo = (dump) ->
     namespacePrefix: ''
 
   # Returns carried function
-  echo.curry = (curriedOptions) ->
+  echo.curry = (possibleCurriedOptions...) ->
+    [curriedBody, curriedOptions] =
+      extractBodyAndOptions(possibleCurriedOptions)
+
     (possibleBody...) ->
       [body, options] = extractBodyAndOptions(possibleBody)
       echo.apply \
         echo,
-        _(body).union \
+        _(curriedBody).union \
+          body,
           [_({}).extend(curriedOptions, options)]
 
 

@@ -140,6 +140,19 @@ describe 'Echo', ->
       log2.level.should.eq 5
       log2.namespace.should.eq 'asd'
 
+    it 'should allow to pass body', ->
+      fn = e.curry('LOL', level: 5)
+      fn()
+      log1 = e.logs.first()
+      log1.body[0].should.eq 'LOL'
+      log1.level.should.eq 5
+      fn('w00t', namespace: 'asd')
+      log2 = e.logs.all()[1]
+      log2.body[0].should.eq 'LOL'
+      log2.body[1].should.eq 'w00t'
+      log2.namespace.should.eq 'asd'
+
+
 
   describe '#define()', ->
 

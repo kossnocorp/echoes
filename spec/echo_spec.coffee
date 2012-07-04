@@ -165,7 +165,6 @@ describe 'Echo', ->
       log3.level.should.eq 6
 
 
-
   describe '#define()', ->
 
     it 'should be defined', ->
@@ -174,7 +173,23 @@ describe 'Echo', ->
     it 'should be function', ->
       e.define.should.be.a 'function'
 
-    it 'should add new function to echo'
+    it 'should add new function to echo', ->
+      e.define('info', 1)
+      e.info.should.exist
+      e.info.should.be 'function'
+      e.define(warn: 2, error: 3)
+      e.info.warn.exist
+      e.info.warn.be 'function'
+      e.info.error.exist
+      e.info.error.be 'function'
+
+    it 'should return curried function with defined level', ->
+      e.define('info', 1)
+      e.info('w00t', namespace: 'qwerty')
+      log = e.logs.first()
+      log.body[0].should.eq 'w00t'
+      log.level.should.eq 1
+      log.namespace.should.eq 'qwerty'
 
 
   describe '#defineDefaults()', ->

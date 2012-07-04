@@ -128,6 +128,17 @@ describe 'Echo', ->
       e.curry().should.be.a 'function'
 
     it 'should return carried function', ->
+      fn = e.curry(level: 5, namespace: 'qwe')
+      fn('LOL')
+      log1 = e.logs.first()
+      log1.body[0].should.eq 'LOL'
+      log1.level.should.eq 5
+      log1.namespace.should.eq 'qwe'
+      fn('w00t', namespace: 'asd')
+      log2 = e.logs.all()[1]
+      log2.body[0].should.eq 'w00t'
+      log2.level.should.eq 5
+      log2.namespace.should.eq 'asd'
 
 
   describe '#define()', ->

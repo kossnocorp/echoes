@@ -10,7 +10,8 @@ Echo = (dump) ->
   # Main log function
   echo = (body...) ->
     logs.push \
-      _(echo.defaultOptions).extend
+      _({}).extend \
+        echo.defaultOptions,
         body:      body
         timestamp: (new Date()).getTime()
 

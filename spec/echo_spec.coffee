@@ -70,6 +70,7 @@ describe 'Echo', ->
         e('test1')
         e('test2')
         allLogs = e.logs.all()
+        allLogs.should.be.an 'array'
         allLogs[0].body[0].should.eq 'test1'
         allLogs[1].body[0].should.eq 'test2'
 

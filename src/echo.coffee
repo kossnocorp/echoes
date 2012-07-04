@@ -64,12 +64,24 @@ Echo = (dump) ->
           body,
           [_({}).extend(curriedOptions, options)]
 
-
   # Define new level
-  echo.define = ->
+  echo.define = (possibleKey, possibleLevel) ->
+    defineLevel = (key, level) ->
+      echo[key] = echo.curry(level: level)
+
+    if _(possibleKey).isString()
+      defineLevel(possibleKey, possibleLevel)
+    else
+      _(possibleKey).each (level, key) ->
+        defineLevel(key, level)
 
   # Define default levels (debug, info, warn, error)
   echo.defineDefaults = ->
+    echo.define
+      debug: 0
+      info:  1
+      warn:  2
+      error: 3
 
   # Return main log function
   echo

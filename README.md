@@ -1,6 +1,6 @@
 # Echo.js — comfort and elegance (while digging in logs)
 
-Need something for logging in JavaScript. Want to powerful and simple solution?
+Need something for logging in JavaScript? Want to powerful and simple solution?
 
 Want to know what happened in module X between 9:00 and 10:00? You wish to see all logs of exact object for last 15 minutes?
 

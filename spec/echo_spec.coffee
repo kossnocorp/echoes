@@ -146,11 +146,23 @@ describe 'Echo', ->
       log1 = e.logs.first()
       log1.body[0].should.eq 'LOL'
       log1.level.should.eq 5
+
       fn('w00t', namespace: 'asd')
       log2 = e.logs.all()[1]
       log2.body[0].should.eq 'LOL'
       log2.body[1].should.eq 'w00t'
       log2.namespace.should.eq 'asd'
+
+      fn2 = e.curry(1, 2, 3, 4, level: 9)
+      fn2('trololo', level: 6)
+      log3 = e.logs.all()[2]
+
+      log3.body[0].should.eq 1
+      log3.body[1].should.eq 2
+      log3.body[2].should.eq 3
+      log3.body[3].should.eq 4
+      log3.body[4].should.eq 'trololo'
+      log3.level.should.eq 6
 
 
 

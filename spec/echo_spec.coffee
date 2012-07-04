@@ -41,6 +41,11 @@ describe 'Echo', ->
       log.namespace.should.eq 'qwerty'
       log.level.should.eq 4
 
+    it 'should not save options to body', ->
+      e('test', level: 4, namespace: 'qwerty')
+      log = e.logs.all()[0]
+      _(log.body[1]).isUndefined().should.eq true
+
     it 'should add timestamp to log', ->
       e('test')
       log = e.logs.all()[0]

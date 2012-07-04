@@ -5,6 +5,7 @@ Echo = (dump) ->
   # Empty logs array
   logs = []
 
+  # Is passed object is options (compare with default options keys)
   isOptions = (object) ->
     _(object).isObject() and  _(object)
                                 .chain()
@@ -15,11 +16,11 @@ Echo = (dump) ->
                                 .value().length == 0
 
   # Main log function
-  echo = (body...) ->
-    options = if isOptions(possibleOptions = _(body).last())
-      possibleOptions
+  echo = (possibleBody...) ->
+    [options, body] = if isOptions(possibleOptions = _(possibleBody).last())
+      [possibleOptions, _(possibleBody).first(possibleBody.length - 1)]
     else
-      {}
+      [{}, possibleBody]
 
     logs.push \
       _({}).extend \

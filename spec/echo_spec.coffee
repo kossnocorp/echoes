@@ -35,6 +35,19 @@ describe 'Echo', ->
       log.body.should.be.an('array')
       log.body[0].should.eq 'test1'
 
+    it 'should save passed options', ->
+      e('test', level: 4, namespace: 'qwerty')
+      log = e.logs.all()[0]
+      log.namespace.should.eq 'qwerty'
+      log.level.should.eq 4
+
+    it 'should add timestamp to log', ->
+      e('test')
+      log = e.logs.all()[0]
+      log.timestamp.should.exist
+      log.timestamp.should.be.a 'number'
+      log.timestamp.toString().length.eq 13
+
 
   describe '#logs', ->
 

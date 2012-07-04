@@ -32,6 +32,9 @@ Echo = (dump) ->
   # Logs API
   echo.logs =
 
+    # Return first log
+    first: -> logs[0]
+
     # Return all logs
     all: -> logs
 

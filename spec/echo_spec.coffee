@@ -30,25 +30,25 @@ describe 'Echo', ->
 
     it 'should log strings', ->
       e('test')
-      log = e.logs.all()[0]
+      log = e.logs.first()
       log.should.be.a 'object'
       log.body.should.be.an('array')
       log.body[0].should.eq 'test'
 
     it 'should save passed options', ->
       e('test', level: 4, namespace: 'qwerty')
-      log = e.logs.all()[0]
+      log = e.logs.first()
       log.namespace.should.eq 'qwerty'
       log.level.should.eq 4
 
     it 'should not save options to body', ->
       e('test', level: 4, namespace: 'qwerty')
-      log = e.logs.all()[0]
+      log = e.logs.first()
       _(log.body[1]).isUndefined().should.eq true
 
     it 'should add timestamp to log', ->
       e('test')
-      log = e.logs.all()[0]
+      log = e.logs.first()
       log.timestamp.should.exist
       log.timestamp.should.be.a 'number'
       log.timestamp.toString().length.should.eq 13
@@ -61,6 +61,21 @@ describe 'Echo', ->
 
     it 'should be object', ->
       e.logs.should.be.a 'object'
+
+
+    describe '#first()', ->
+
+      it 'should be defined', ->
+        e.logs.first.should.exist
+
+      it 'should be function', ->
+        e.logs.first.should.be.a 'function'
+
+      it 'should return first log', ->
+        e('test1')
+        e('test2')
+        logs = e.logs.first()
+        logs.body[0].should.eq 'test1'
 
 
     describe '#all()', ->
@@ -95,7 +110,7 @@ describe 'Echo', ->
 
     it 'should apply default options to each log', ->
       e('test1')
-      log = e.logs.all()[0]
+      log = e.logs.first()
       log.level.should.eq e.defaultOptions.level
       namespace = ''
       unless _(e.defaultOptions.namespacePrefix).isEmpty()

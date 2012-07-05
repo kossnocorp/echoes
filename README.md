@@ -23,6 +23,32 @@ echo('Good news!', level: 3)       # => … is 3
 echo('Good news!', level: 'error') # => … is 3
 ```
 
+### Structure of logs:
+
+This code:
+
+``` coffeescript
+echo.log('Test', 'logging', namespace: 'app.lol_module.4')
+echo.log(['trololo'])
+```
+
+… will store:
+
+``` json
+[
+  {
+    "timestamp":  1341468018606,
+    "body":       ["Test", "logging"],
+    "namespace":  "app.lol_module.45"
+  },
+  {
+    "timestamp":  1341468018606,
+    "body":       [['trololo']],
+    "namespace":  ""
+  }
+]
+```
+
 ### Log objects (with clone)
 
 All objects and arrays clone on log:

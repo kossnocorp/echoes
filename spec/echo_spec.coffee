@@ -116,6 +116,16 @@ describe 'Echo', ->
         allLogs[0].body[0].should.eq 'test1'
         allLogs[1].body[0].should.eq 'test2'
 
+    describe '#grep()', ->
+
+      it 'should be defined'
+
+      it 'should be function'
+
+      it 'should returns array'
+
+      it 'should grep string in logs'
+
 
   describe 'define new log functions', ->
 

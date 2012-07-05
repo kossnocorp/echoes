@@ -89,8 +89,10 @@ TODO: Add more examples
 
 ### Grep logs
 
+To find logs with `'some'` in body:
+
 ```
-TODO: Add examples
+echo.logs.grep 'some' # => [{ body: ['Something'] }, { body: ['I want some LSD.']}]
 ```
 
 ### Get logs by time

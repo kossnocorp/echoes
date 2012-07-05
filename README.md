@@ -87,6 +87,12 @@ l.first()
 TODO: Add more examples
 ```
 
+### Grep logs
+
+```
+TODO: Add examples
+```
+
 ### Get logs by time
 
 ```
@@ -114,6 +120,18 @@ TODO: Add examples
 ```
 
 ### Async
+
+```
+TODO: Add examples
+```
+
+### Add trace to log (limited support)
+
+```
+TODO: Add examples
+```
+
+### Output to browser console
 
 ```
 TODO: Add examples

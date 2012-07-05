@@ -53,6 +53,10 @@ describe 'Echo', ->
       log.timestamp.should.be.a 'number'
       log.timestamp.toString().length.should.eq 13
 
+    it 'should accept string levels'
+
+    it 'should multiply namespacePrefix and namespace'
+
 
   describe '#logs', ->
 

@@ -23,12 +23,56 @@ echo('Good news!', level: 3)       # => … is 3
 echo('Good news!', level: 'error') # => … is 3
 ```
 
-### Get logs
+### Log objects (with clone)
+
+```
+TODO: Add examples
+```
+
+### Log objects with deep clone
+
+```
+TODO: Add examples
+```
+
+### Basic functions to get logs
+
+Get first record:
+
+``` coffeescript
+echo.logs.first()
+```
 
 To get all logs (array of log objects):
 
 ``` coffeescript
 echo.logs.all()
+```
+
+### Access logs by shortcut
+
+``` coffeescript
+l = echo.logs
+l.all()
+l.first()
+```
+
+### Getters instead functions (works only in [...])
+
+```
+TODO: Add more examples
+```
+
+### Get logs by time
+
+```
+TODO: Add more examples
+```
+
+### Write plugins for logs
+
+```
+TODO: Add more examples
 ```
 
 ### Define custom levels
@@ -39,9 +83,45 @@ echo.define(shitHappened: 8)
 echo.shitHappened # Log function with level of importance equal to 8
 ```
 
+### Callbacks
+
+```
+TODO: Add examples
+```
+
+### Async
+
+```
+TODO: Add examples
+```
+
 ### Currying
 
 You can create curried function with predefined options, like `level`, `namespacePrefix` etc
+
+### Dump log
+
+```
+TODO: Add examples
+```
+
+### Restore dump
+
+```
+TODO: Add examples
+```
+
+### Store log dumps in local storage
+
+```
+TODO: Add examples
+```
+
+### Cleanup logs
+
+```
+TODO: Add examples
+```
 
 ## Changelog
 

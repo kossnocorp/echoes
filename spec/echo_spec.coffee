@@ -117,29 +117,6 @@ describe 'Echo', ->
         allLogs[1].body[0].should.eq 'test2'
 
 
-  describe '#defaultOptions', ->
-
-    it 'should be defined', ->
-      e.defaultOptions.should.exist
-
-    it 'should be object', ->
-      e.defaultOptions.should.be.a 'object'
-
-    it 'should containt default options', ->
-      e.defaultOptions.level.should.eq           0
-      e.defaultOptions.namespace.should.eq       ''
-      e.defaultOptions.namespacePrefix.should.eq ''
-
-    it 'should apply default options to each log', ->
-      e('test1')
-      log = e.logs.first()
-      log.level.should.eq e.defaultOptions.level
-      namespace = ''
-      unless _(e.defaultOptions.namespacePrefix).isEmpty()
-        namespace += e.defaultOptions.namespacePrefix + '.'
-      namespace += e.defaultOptions.namespace
-      log.namespace.should.eq namespace
-
 
   describe '#curry()', ->
 
@@ -216,12 +193,49 @@ describe 'Echo', ->
 
   describe 'defaults', ->
 
+    describe '#defaultOptions', ->
+
+      it 'should be defined', ->
+        e.defaultOptions.should.exist
+
+      it 'should be object', ->
+        e.defaultOptions.should.be.a 'object'
+
+      it 'should containt default options', ->
+        e.defaultOptions.clone.should.eq           true
+        e.defaultOptions.level.should.eq           0
+        e.defaultOptions.namespace.should.eq       ''
+        e.defaultOptions.namespacePrefix.should.eq ''
+
+      it 'should apply default options to each log', ->
+        e('test1')
+        log = e.logs.first()
+        log.level.should.eq e.defaultOptions.level
+        namespace = ''
+        unless _(e.defaultOptions.namespacePrefix).isEmpty()
+          namespace += e.defaultOptions.namespacePrefix + '.'
+        namespace += e.defaultOptions.namespace
+        log.namespace.should.eq namespace
+
+
     describe '#defineDefaults()', ->
 
       it 'should be defined', ->
         e.defineDefaults.should.exist
 
-      it 'should add defaults to logger'
+      it 'should be function', ->
+        e.defineDefaults.should.be.a 'function'
+
+      it 'should add defaults to logger', ->
+        _(e.debug).isUndefined().should.eq true
+        _(e.info).isUndefined().should.eq true
+        _(e.warn).isUndefined().should.eq true
+        _(e.error).isUndefined().should.eq true
+        e.defineDefaults()
+        e.debug.should.exist
+        e.info.should.exist
+        e.warn.should.exist
+        e.error.should.exist
 
 
     describe 'echo()', ->

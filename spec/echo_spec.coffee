@@ -58,6 +58,24 @@ describe 'Echo', ->
     it 'should multiply namespacePrefix and namespace'
 
 
+  describe 'clone on log', ->
+
+    it 'should clone objects on log (but not deeply)', ->
+      obj =
+        qwe: 1
+        asd: 2
+        obj: qwe: 1, asd: 2
+      e(obj)
+      e.logs.first().body[0].should.not.eq obj
+      e.logs.first().body[0].obj.should.eq obj.obj
+
+    it 'should clone arrays on log (but not deeply)', ->
+      array = [[1, 2], 3, 4]
+      e(array)
+      e.logs.first().body[0].should.not.eq array
+      e.logs.first().body[0][0].should.eq array[0]
+
+
   describe '#logs', ->
 
     it 'should be defined', ->

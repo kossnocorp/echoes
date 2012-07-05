@@ -206,11 +206,20 @@ describe 'Echo', ->
 
     describe '#dump()', ->
 
-      it 'should be defined'
+      it 'should be defined', ->
+        e.dump.should.exist
 
-      it 'should be function'
+      it 'should be function', ->
+        e.dump.should.be.a 'function'
 
-      it 'should dump logs into JSON'
+      it 'should dump logs into JSON', ->
+        e('trololo')
+        e('qwerty')
+        e.dump().should.be.a 'string'
+        restored = JSON.parse(e.dump())
+        restored.should.be.a 'object'
+        restored[0].body[0].should.eq 'trololo'
+        restored[1].body[0].should.eq 'qwerty'
 
 
     describe '#restore()', ->

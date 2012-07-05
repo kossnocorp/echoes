@@ -192,6 +192,30 @@ describe 'Echo', ->
         log.namespace.should.eq 'qwerty'
 
 
+  describe 'dump logs', ->
+
+    describe '#dump()', ->
+
+      it 'should be defined'
+
+      it 'should be function'
+
+      it 'should dump logs into JSON'
+
+
+    describe '#restore()', ->
+
+      it 'should be defined'
+
+      it 'should be function'
+
+      it 'should restore logs from dump'
+
+    describe 'restore on initialization', ->
+
+      it 'should restore log on initialization'
+
+
   describe 'defaults', ->
 
     describe '#defaultOptions', ->

@@ -133,6 +133,8 @@ $.post \
   log: echo.dump()
 ```
 
+If you're using an older browser which doesn't have native JSON support (i.e. IE 7), you'll need to include [`json2.js`](https://github.com/douglascrockford/JSON-js/blob/master/json2.js) which adds legacy support.
+
 ### Restore dump
 
 And restore dump with initializer:

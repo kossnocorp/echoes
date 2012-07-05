@@ -25,11 +25,35 @@ echo('Good news!', level: 'error') # => … is 3
 
 ### Log objects (with clone)
 
-```
-TODO: Add examples
+All objects and arrays clone on log:
+
+``` coffeescript
+obj =
+  qwe: 1
+  asd: 2
+  obj: qwe: 1, asd: 2
+
+echo obj
+
+loggedObj = echo.logs.first().body[0]
+
+loggedObj == obj     #=> false, because obj was cloned
+loggedObj.obj == obj #=> true, but not deeply
 ```
 
-### Log objects with deep clone
+### Save link to objects instead of clone
+
+If you want to save link to object instead of clone it, just add `clone: false` key to options:
+
+``` coffeescript
+obj = qwe: 1, asd: 2
+
+echo obj, clone: false
+
+echo.logs.first().body[0] == obj #=> true
+```
+
+### Write plugins for log process
 
 ```
 TODO: Add examples

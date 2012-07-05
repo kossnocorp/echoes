@@ -43,7 +43,7 @@ echo.log(['trololo'])
   },
   {
     "timestamp":  1341468018606,
-    "body":       [['trololo']],
+    "body":       [["trololo"]],
     "namespace":  ""
   }
 ]

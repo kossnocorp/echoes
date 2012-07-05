@@ -66,14 +66,14 @@ describe 'Echo', ->
         asd: 2
         obj: qwe: 1, asd: 2
       e(obj)
-      e.logs.first().body[0].should.not.eq obj
-      e.logs.first().body[0].obj.should.eq obj.obj
+      e.logs.first().body[0].should.not.equal obj
+      e.logs.first().body[0].obj.should.equal obj.obj
 
     it 'should clone arrays on log (but not deeply)', ->
       array = [[1, 2], 3, 4]
       e(array)
-      e.logs.first().body[0].should.not.eq array
-      e.logs.first().body[0][0].should.eq array[0]
+      e.logs.first().body[0].should.not.equal array
+      e.logs.first().body[0][0].should.equal array[0]
 
 
   describe '#logs', ->
@@ -214,19 +214,23 @@ describe 'Echo', ->
       log.namespace.should.eq 'qwerty'
 
 
-  describe '#defineDefaults()', ->
+  describe 'defaults', ->
 
-    it 'should be defined', ->
-      e.defineDefaults.should.exist
+    describe '#defineDefaults()', ->
+
+      it 'should be defined', ->
+        e.defineDefaults.should.exist
+
+      it 'should add defaults to logger'
 
 
-  describe 'echo()', ->
+    describe 'echo()', ->
 
-    it 'should be defined', ->
-      echo.should.exist
+      it 'should be defined', ->
+        echo.should.exist
 
-    it 'should predefine default levels', ->
-      echo.debug.should.exist
-      echo.info.should.exist
-      echo.warn.should.exist
-      echo.error.should.exist
+      it 'should predefine default levels', ->
+        echo.debug.should.exist
+        echo.info.should.exist
+        echo.warn.should.exist
+        echo.error.should.exist

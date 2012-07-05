@@ -15,25 +15,46 @@ Echo = (dump) ->
                                 )
                                 .value().length == 0
 
+  # Clone value
+  cloneModificator = (item) ->
+    if _(item).isObject() or _(item).isArray()
+      _(item).clone()
+    else
+      item
+
+  # Process body
+  processBody = (body, options) ->
+    modificators = []
+
+    if options?
+      modificators.push(cloneModificator) if options.clone
+
+    _(body).map (item) ->
+      _(modificators).reduce \
+        (item, modificator) -> modificator(item, options),
+        item
+
   # Extact body and options from possibleBody
   extractBodyAndOptions = (possibleBody) ->
     if isOptions(possibleOptions = _(possibleBody).last())
-      [
-        _(possibleBody).initial(),
-        possibleOptions
-      ]
+      [_(possibleBody).initial(), possibleOptions]
     else
       [possibleBody, {}]
+
+  # Returns options with default values
+  optionsWithDefaults = (options) ->
+    _({}).extend(echo.defaultOptions, options)
 
   # Main log function
   echo = (possibleBody...) ->
     [body, options] = extractBodyAndOptions(possibleBody)
 
+    finalOptions = optionsWithDefaults(options)
+
     logs.push \
       _({}).extend \
-        echo.defaultOptions,
-        options,
-        body:      body
+        finalOptions,
+        body:      processBody(body, finalOptions)
         timestamp: (new Date()).getTime()
 
   # Logs API
@@ -47,6 +68,7 @@ Echo = (dump) ->
 
   # Default options
   echo.defaultOptions =
+    clone:           true
     level:           0
     namespace:       ''
     namespacePrefix: ''

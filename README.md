@@ -1,4 +1,4 @@
-# Echo.js — comfort and elegance (while digging in logs)
+# Echoes.js — comfort and elegance (while digging in logs)
 
 Need something for logging in JavaScript? Want to powerful and simple solution?
 

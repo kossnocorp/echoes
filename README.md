@@ -125,14 +125,26 @@ You can create curried function with predefined options, like `level`, `namespac
 
 ### Dump log
 
+You can dump logs:
+
 ```
-TODO: Add examples
+$.post \
+  '/logs',
+  log: echo.dump()
 ```
 
 ### Restore dump
 
+And restore dump with initializer:
+
+``` coffeescript
+e = Echo(dump)
 ```
-TODO: Add examples
+
+… or via call restore:
+
+``` coffeescript
+echo.restore(dump)
 ```
 
 ### Store log dumps in local storage

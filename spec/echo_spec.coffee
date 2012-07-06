@@ -231,7 +231,7 @@ describe 'Echo', ->
         e('qwerty')
         e.dump().should.be.a 'string'
         restored = JSON.parse(e.dump())
-        restored.should.be.a 'object'
+        restored.should.be.a 'array'
         restored[0].body[0].should.eq 'trololo'
         restored[1].body[0].should.eq 'qwerty'
 

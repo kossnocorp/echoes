@@ -28,7 +28,7 @@ echo('Good news!', level: 'error') # => … is 3
 This code:
 
 ``` coffeescript
-echo.log('Test', 'logging', namespace: 'app.lol_module.4')
+echo.log('Test', 'logging', namespace: 'app.lol_module.45')
 echo.log(['trololo'])
 ```
 
@@ -83,6 +83,21 @@ echo.logs.first().body[0] == obj #=> true
 
 ```
 TODO: Add examples
+```
+
+### Indeficate object
+
+There 3 ways to indeficate object:
+
+* namespacePrefix
+* namespace
+* id
+
+On log namespacePrefix, namespace and id join with `.` and save as `cid`:
+
+``` coffeescript
+echo 'Qwerty', namespacePrefix: 'app', namespace: 'controller', id: 42
+echo.logs.first().cid # => "app.controller.42"
 ```
 
 ### Basic functions to get logs

@@ -1,9 +1,9 @@
 _              = require('underscore')
 { Echo, echo } = require('../src/echo.coffee')
 
-chai      = require('chai')
-sinon     = require('sinon')
-sinonChai = require('sinon-chai')
+chai           = require('chai')
+sinon          = require('sinon')
+sinonChai      = require('sinon-chai')
 
 chai.should()
 chai.use(sinonChai)
@@ -38,7 +38,7 @@ describe 'Echo', ->
     it 'should save passed options', ->
       e('test', level: 4, namespace: 'qwerty')
       log = e.logs.first()
-      log.namespace.should.eq 'qwerty'
+      log.cid.should.eq 'qwerty'
       log.level.should.eq 4
 
     it 'should not save options to body', ->
@@ -55,7 +55,21 @@ describe 'Echo', ->
 
     it 'should accept string levels'
 
-    it 'should multiply namespacePrefix and namespace'
+    it 'should join namespacePrefix and id and save as cid', ->
+      e(namespacePrefix: 'app', id: 42)
+      e.logs.first().cid.should.eq 'app.42'
+
+    it 'should join namespace and id and save as cid', ->
+      e(namespace: 'test', id: 42)
+      e.logs.first().cid.should.eq 'test.42'
+
+    it 'should join namespacePrefix and namespace and save as cid', ->
+      e(namespacePrefix: 'app', namespace: 'test')
+      e.logs.first().cid.should.eq 'app.test'
+
+    it 'should join namespacePrefix, namespace and id and save as cid', ->
+      e(namespacePrefix: 'app', namespace: 'test', id: 42)
+      e.logs.first().cid.should.eq 'app.test.42'
 
 
   describe 'clone on log', ->
@@ -143,12 +157,12 @@ describe 'Echo', ->
         log1 = e.logs.first()
         log1.body[0].should.eq 'LOL'
         log1.level.should.eq 5
-        log1.namespace.should.eq 'qwe'
+        log1.cid.should.eq 'qwe'
         fn('w00t', namespace: 'asd')
         log2 = e.logs.all()[1]
         log2.body[0].should.eq 'w00t'
         log2.level.should.eq 5
-        log2.namespace.should.eq 'asd'
+        log2.cid.should.eq 'asd'
 
       it 'should allow to pass body', ->
         fn = e.curry('LOL', level: 5)
@@ -161,7 +175,7 @@ describe 'Echo', ->
         log2 = e.logs.all()[1]
         log2.body[0].should.eq 'LOL'
         log2.body[1].should.eq 'w00t'
-        log2.namespace.should.eq 'asd'
+        log2.cid.should.eq 'asd'
 
         fn2 = e.curry(1, 2, 3, 4, level: 9)
         fn2('trololo', level: 6)
@@ -199,7 +213,7 @@ describe 'Echo', ->
         log = e.logs.first()
         log.body[0].should.eq 'w00t'
         log.level.should.eq 1
-        log.namespace.should.eq 'qwerty'
+        log.cid.should.eq 'qwerty'
 
 
   describe 'dump logs', ->
@@ -248,18 +262,15 @@ describe 'Echo', ->
       it 'should containt default options', ->
         e.defaultOptions.clone.should.eq           true
         e.defaultOptions.level.should.eq           0
-        e.defaultOptions.namespace.should.eq       ''
         e.defaultOptions.namespacePrefix.should.eq ''
+        e.defaultOptions.namespace.should.eq       ''
+        e.defaultOptions.id.should.eq              ''
 
       it 'should apply default options to each log', ->
         e('test1')
         log = e.logs.first()
         log.level.should.eq e.defaultOptions.level
-        namespace = ''
-        unless _(e.defaultOptions.namespacePrefix).isEmpty()
-          namespace += e.defaultOptions.namespacePrefix + '.'
-        namespace += e.defaultOptions.namespace
-        log.namespace.should.eq namespace
+        log.cid.should.eq ''
 
 
     describe '#defineDefaults()', ->

@@ -45,11 +45,36 @@ Echo = (dump) ->
   optionsWithDefaults = (options) ->
     _({}).extend(echo.defaultOptions, options)
 
+  # Cut options: these options will be remove before save to log
+  CUT_OPTIONS = 'namespacePrefix namespace id'.split(' ')
+
+  # Process options: remove unncessary, join cid etc
+  processOptions = (options) ->
+    cidArray = []
+
+    cidArray.push(options.namespacePrefix) unless options.namespacePrefix == ''
+    cidArray.push(options.namespace)       unless options.namespace == ''
+    cidArray.push(options.id)              unless options.id == ''
+
+    newOptions = _(options).clone()
+
+    delete newOptions[key] for key in CUT_OPTIONS
+
+    _({})
+      .extend \
+        newOptions,
+        cid: cidArray.join('.')
+
+  # Assemble options
+  assembleOptions = (options) ->
+    processOptions \
+      optionsWithDefaults(options)
+
   # Main log function
   echo = (possibleBody...) ->
     [body, options] = extractBodyAndOptions(possibleBody)
 
-    finalOptions = optionsWithDefaults(options)
+    finalOptions = assembleOptions(options)
 
     logs.push \
       _({}).extend \
@@ -70,8 +95,13 @@ Echo = (dump) ->
   echo.defaultOptions =
     clone:           true
     level:           0
-    namespace:       ''
     namespacePrefix: ''
+    namespace:       ''
+    id:              ''
+
+  # Returns dumped
+  echo.dump = ->
+    JSON.stringify(logs)
 
   # Returns carried function
   echo.curry = (possibleCurriedOptions...) ->

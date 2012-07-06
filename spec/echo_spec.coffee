@@ -53,7 +53,13 @@ describe 'Echo', ->
       log.timestamp.should.be.a 'number'
       log.timestamp.toString().length.should.eq 13
 
-    it 'should accept string levels'
+    it 'should accept string levels', ->
+      e.define('trash', 3)
+      e('Trololo', level: 'trash')
+      e('Trololo', level: 'lol')
+      allLogs = e.logs.all()
+      allLogs[0].level.should.eq 3
+      allLogs[1].level.should.eq 0
 
     it 'should join namespacePrefix and id and save as cid', ->
       e(namespacePrefix: 'app', id: 42)

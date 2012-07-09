@@ -196,6 +196,29 @@ $.post \
 
 If you're using an older browser which doesn't have native JSON support (i.e. IE 7), you'll need to include [`json2.js`](https://github.com/douglascrockford/JSON-js/blob/master/json2.js) which adds legacy support.
 
+### Dump level
+
+By default dump level is `1`:
+
+```
+echo.dump(0)
+# => [ { body: [1, 2, "[object Object]"], …
+
+echo.dump()
+# => [ { body: [1, 2, { 1, 2, "[object Object]" }], …
+
+echo.dump(2)
+# => [ { body: [1, 2, { 1, 2, { 1, 2, "[object Object]" } }], …
+
+# etc
+```
+
+If you want to get deep dump to serialise objects with circular references you should include [`cycle.js extension to the JSON object`](https://github.com/douglascrockford/JSON-js/blob/master/cycle.js) and pass `-1` as level (be carefully, making dump may take a time).
+
+``` coffeescript
+echo.dump(-1)
+```
+
 ### Restore dump
 
 And restore dump with initializer:

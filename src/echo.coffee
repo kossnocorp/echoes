@@ -19,10 +19,24 @@ _ = @_ or require('underscore')
 
 Echo = (dump) ->
 
-  # Empty logs array
+  # Internal: Logs storage
   logs = []
 
-  # Is passed object is options (compare with default options keys)
+  ###
+    Internal: Determine is passed variable is options object.
+
+    options - Variable to be checked (could be any type).
+
+    Examples
+
+      isOptions(4)
+      # => false
+
+      isOptions(level: 4)
+      # => true
+
+    Returns boolean value.
+  ###
   isOptions = (object) ->
     _(object).isObject() and  _(object)
                                 .chain()
@@ -32,14 +46,42 @@ Echo = (dump) ->
                                 )
                                 .value().length == 0
 
-  # Clone value
+  ###
+    Internal: Clone array or object, other types will be passed by
+
+    item - variable to be cloned (or passed by)
+
+    Examples
+
+      cloneModificator(5)
+      # => 5
+
+      a = example: true
+      cloneModificator(a) == a # === for JavaScript
+      # => false
+  ###
   cloneModificator = (item) ->
     if _(item).isObject() or _(item).isArray()
       _(item).clone()
     else
       item
 
-  # Process body
+  ###
+    Internal: Process body.
+
+    body    - array of variables to be logged.
+    options - options of log.
+
+    Examples
+
+      processBody([1, 2, 3])
+      # => [1, 2, 3]
+
+      processBody([1, 2, 3], level: 5)
+      # => [1, 2, 3]
+
+    Returns array, processed body.
+  ###
   processBody = (body, options) ->
     modificators = []
 
@@ -51,21 +93,32 @@ Echo = (dump) ->
         (item, modificator) -> modificator(item, options),
         item
 
-  # Extact body and options from possibleBody
+  ###
+    Internal: Extact body and options from arguments.
+  ###
   extractBodyAndOptions = (possibleBody) ->
     if isOptions(possibleOptions = _(possibleBody).last())
       [_(possibleBody).initial(), possibleOptions]
     else
       [possibleBody, {}]
 
-  # Returns options with default values
+  ###
+    Internal: Craete options merged with default values.
+
+    Returns options with default values.
+  ###
   optionsWithDefaults = (options) ->
     _({}).extend(echo.defaultOptions, options)
 
-  # Cut options: these options will be remove before save to log
+  # Internal: Cut options: these options will be remove before save to log
   CUT_OPTIONS = 'namespacePrefix namespace id'.split(' ')
 
-  # Process options: remove unncessary, join cid etc
+
+  ###
+    Internal: Process options, remove unncessary, join cid etc
+
+    Returns object, processed options
+  ###
   processOptions = (options) ->
     cidArray = []
 
@@ -144,7 +197,13 @@ Echo = (dump) ->
       _(possibleKey).each (level, key) ->
         defineLevel(key, level)
 
-  # Define default levels (debug, info, warn, error)
+  ###
+    Public: Define default levels: debug (0), info (1), warn (2), error (3)
+
+    Examples
+
+      defineDefaults()
+  ###
   echo.defineDefaults = ->
     echo.define
       debug: 0

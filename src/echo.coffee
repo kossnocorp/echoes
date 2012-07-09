@@ -1,3 +1,20 @@
+###
+   ______     ______     __  __     ______     ______     ______
+  /\  ___\   /\  ___\   /\ \_\ \   /\  __ \   /\  ___\   /\  ___\
+  \ \  __\   \ \ \____  \ \  __ \  \ \ \/\ \  \ \  __\   \ \___  \
+   \ \_____\  \ \_____\  \ \_\ \_\  \ \_____\  \ \_____\  \/\_____\
+    \/_____/   \/_____/   \/_/\/_/   \/_____/   \/_____/   \/_____/
+
+  Echoes.js ~ https://github.com/kossnocorp/echoes
+
+  Need something for logging in JavaScript?
+  Want to powerful and simple solution? Echo.js is your choose, bro!
+
+  The MIT License
+
+  Copyright (c) 2012 Sasha Koss
+###
+
 _ = @_ or require('underscore')
 
 Echo = (dump) ->

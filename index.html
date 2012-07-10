@@ -1,0 +1,436 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Echoes by kossnocorp</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Echoes</h1>
+        <p>Need something for logging in JavaScript? Want to powerful and simple solution? Echo.js is your choose, bro!</p>
+
+        <p class="view"><a href="https://github.com/kossnocorp/echoes">View the Project on GitHub <small>kossnocorp/echoes</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/kossnocorp/echoes/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/kossnocorp/echoes/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/kossnocorp/echoes">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Echoes.js — comfort and elegance (while digging in logs)</h1>
+
+<p>Need something for logging in JavaScript? Want to powerful and simple solution?</p>
+
+<p>Want to know what happened in module X between 9:00 and 10:00? You wish to see all logs of exact object for last 15 minutes?</p>
+
+<p>Echoes.js is your choose, bro!</p>
+
+<h2>Usage</h2>
+
+<h3>Basic usage</h3>
+
+<div class="highlight">
+<pre><span class="nx">echo</span>       <span class="s">'You'</span>      <span class="c1"># =&gt; Level of importance is 0</span>
+<span class="nx">echo</span><span class="p">.</span><span class="nx">debug</span> <span class="s">'are'</span>      <span class="c1"># =&gt; … is 0</span>
+<span class="nx">echo</span><span class="p">.</span><span class="nx">info</span>  <span class="s">'awesome,'</span> <span class="c1"># =&gt; … is 1</span>
+<span class="nx">echo</span><span class="p">.</span><span class="nx">warn</span>  <span class="s">'my'</span>       <span class="c1"># =&gt; … is 2</span>
+<span class="nx">echo</span><span class="p">.</span><span class="nx">error</span> <span class="s">'friend!'</span>  <span class="c1"># =&gt; … is 3</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">(</span><span class="s">'Good news!'</span><span class="p">,</span> <span class="nv">level: </span><span class="mi">3</span><span class="p">)</span>       <span class="c1"># =&gt; … is 3</span>
+<span class="nx">echo</span><span class="p">(</span><span class="s">'Good news!'</span><span class="p">,</span> <span class="nv">level: </span><span class="s">'error'</span><span class="p">)</span> <span class="c1"># =&gt; … is 3</span>
+</pre>
+</div>
+
+
+<h3>Structure of logs:</h3>
+
+<p>This code:</p>
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s">'Test'</span><span class="p">,</span> <span class="s">'logging'</span><span class="p">,</span> <span class="nv">namespace: </span><span class="s">'app.lol_module.45'</span><span class="p">)</span>
+<span class="nx">echo</span><span class="p">.</span><span class="nx">log</span><span class="p">([</span><span class="s">'trololo'</span><span class="p">])</span>
+</pre>
+</div>
+
+
+<p>… will store:</p>
+
+<div class="highlight">
+<pre><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">"timestamp"</span><span class="p">:</span>  <span class="mi">1341468018606</span><span class="p">,</span>
+    <span class="nt">"body"</span><span class="p">:</span>       <span class="p">[</span><span class="s2">"Test"</span><span class="p">,</span> <span class="s2">"logging"</span><span class="p">],</span>
+    <span class="nt">"namespace"</span><span class="p">:</span>  <span class="s2">"app.lol_module.45"</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">"timestamp"</span><span class="p">:</span>  <span class="mi">1341468018606</span><span class="p">,</span>
+    <span class="nt">"body"</span><span class="p">:</span>       <span class="p">[[</span><span class="s2">"trololo"</span><span class="p">]],</span>
+    <span class="nt">"namespace"</span><span class="p">:</span>  <span class="s2">""</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>Print</h3>
+
+<p>By default logs is don't print to developer console (Web Inspector, Firebug etc).</p>
+
+<p>If you want to log with print you should add <code>print: true</code> key:</p>
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="nv">print: </span><span class="kc">true</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<p>If you want to setup <code>print: true</code> for specific levels:</p>
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">.</span><span class="nx">definePrint</span>
+  <span class="mi">0</span><span class="o">:</span>     <span class="kc">false</span>
+  <span class="mi">3</span><span class="o">:</span>     <span class="kc">true</span>
+  <span class="nv">error: </span><span class="kc">true</span>
+</pre>
+</div>
+
+
+<p>Or you can you advanced rules:</p>
+
+<pre><code>all                                       - Set true to all levels.
+only                                      - Set true to only …
+except                                    - Set true to all except …
+greaterThan (alias: gt)                   - Greater than.
+greaterThanOrEqualTo (aliases: gte, gteq) - Greater than or equal to.
+lessThan (alias: lt)                      - Less than.
+lessThanOrEqualTo (aliases: lte, lteq)    - Less than or equal to.
+</code></pre>
+
+<h4>Examples</h4>
+
+<p>Always print:</p>
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">.</span><span class="nx">definePrint</span><span class="p">(</span><span class="s">'all'</span><span class="p">)</span>
+
+<span class="c1"># equal to</span>
+
+<span class="nx">echo</span><span class="p">.</span><span class="nx">definePrint</span><span class="p">(</span><span class="nv">all: </span><span class="kc">true</span><span class="p">)</span>
+
+<span class="c1"># equal to</span>
+
+<span class="nv">echo.defaultOptions.print = </span><span class="kc">true</span>
+</pre>
+</div>
+
+
+<p>Only for specific levels:</p>
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">.</span><span class="nx">definePrint</span><span class="p">(</span><span class="s">'only'</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s">'warn'</span><span class="p">])</span>
+</pre>
+</div>
+
+
+<p>Print log with level great than 4 (but 7 and 9):</p>
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">.</span><span class="nx">definePrint</span>
+  <span class="nv">gt: </span>    <span class="mi">4</span>
+  <span class="nv">except: </span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+
+<span class="c1"># equal to</span>
+
+<span class="nx">echo</span><span class="p">.</span><span class="nx">definePrint</span>
+  <span class="nv">gt: </span><span class="mi">4</span>
+  <span class="mi">7</span><span class="o">:</span>  <span class="kc">false</span>
+  <span class="mi">9</span><span class="o">:</span>  <span class="kc">false</span>
+
+<span class="c1"># equal to</span>
+
+<span class="nx">echo</span><span class="p">.</span><span class="nx">definePrint</span>
+  <span class="nv">gt: </span>    <span class="mi">4</span>
+  <span class="nv">except: </span><span class="mi">7</span>
+  <span class="mi">9</span><span class="o">:</span>      <span class="kc">false</span>
+</pre>
+</div>
+
+
+<p>etc</p>
+
+<h4>Print function</h4>
+
+<p>By default Echoes use <code>console.log</code> (if defined) for logs with level <code>0</code>, <code>console.info</code> for <code>1</code>, <code>console.warn</code> for <code>2</code>, <code>console.error</code> for <code>3</code>.</p>
+
+<p>But you can setup you own print function:</p>
+
+<div class="highlight">
+<pre><span class="nv">ownPrint = </span><span class="nf">(log, options) -&gt;</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="nx">log</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span>
+
+<span class="nx">echo</span><span class="p">.</span><span class="nx">setPrintFunction</span><span class="p">(</span><span class="nx">ownPrint</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<h3>Log objects (with clone)</h3>
+
+<p>All objects and arrays clone on log:</p>
+
+<div class="highlight">
+<pre><span class="nv">obj =</span>
+  <span class="nv">qwe: </span><span class="mi">1</span>
+  <span class="nv">asd: </span><span class="mi">2</span>
+  <span class="nv">obj: qwe: </span><span class="mi">1</span><span class="p">,</span> <span class="nv">asd: </span><span class="mi">2</span>
+
+<span class="nx">echo</span> <span class="nx">obj</span>
+
+<span class="nv">loggedObj = </span><span class="nx">echo</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">first</span><span class="p">().</span><span class="nx">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nx">loggedObj</span> <span class="o">==</span> <span class="nx">obj</span>     <span class="c1">#=&gt; false, because obj was cloned</span>
+<span class="nx">loggedObj</span><span class="p">.</span><span class="nx">obj</span> <span class="o">==</span> <span class="nx">obj</span> <span class="c1">#=&gt; true, but not deeply</span>
+</pre>
+</div>
+
+
+<h3>Save link to objects instead of clone</h3>
+
+<p>If you want to save link to object instead of clone it, just add <code>clone: false</code> key to options:</p>
+
+<div class="highlight">
+<pre><span class="nv">obj = qwe: </span><span class="mi">1</span><span class="p">,</span> <span class="nv">asd: </span><span class="mi">2</span>
+
+<span class="nx">echo</span> <span class="nx">obj</span><span class="p">,</span> <span class="nv">clone: </span><span class="kc">false</span>
+
+<span class="nx">echo</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">first</span><span class="p">().</span><span class="nx">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nx">obj</span> <span class="c1">#=&gt; true</span>
+</pre>
+</div>
+
+
+<h3>Write plugins for log process</h3>
+
+<pre><code>TODO: Add examples
+</code></pre>
+
+<h3>Indeficate object</h3>
+
+<p>There 3 ways to indeficate object:</p>
+
+<ul>
+<li>namespacePrefix</li>
+<li>namespace</li>
+<li>id</li>
+</ul><p>On log namespacePrefix, namespace and id join with <code>.</code> and save as <code>cid</code>:</p>
+
+<div class="highlight">
+<pre><span class="nx">echo</span> <span class="s">'Qwerty'</span><span class="p">,</span> <span class="nv">namespacePrefix: </span><span class="s">'app'</span><span class="p">,</span> <span class="nv">namespace: </span><span class="s">'controller'</span><span class="p">,</span> <span class="nv">id: </span><span class="mi">42</span>
+<span class="nx">echo</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">first</span><span class="p">().</span><span class="nx">cid</span> <span class="c1"># =&gt; "app.controller.42"</span>
+</pre>
+</div>
+
+
+<h3>Basic functions to get logs</h3>
+
+<p>Get first record:</p>
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">first</span><span class="p">()</span>
+</pre>
+</div>
+
+
+<p>To get all logs (array of log objects):</p>
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">all</span><span class="p">()</span>
+</pre>
+</div>
+
+
+<h3>Access logs by shortcut</h3>
+
+<div class="highlight">
+<pre><span class="nv">l = </span><span class="nx">echo</span><span class="p">.</span><span class="nx">logs</span>
+<span class="nx">l</span><span class="p">.</span><span class="nx">all</span><span class="p">()</span>
+<span class="nx">l</span><span class="p">.</span><span class="nx">first</span><span class="p">()</span>
+</pre>
+</div>
+
+
+<h3>Getters instead functions (works only in [...])</h3>
+
+<pre><code>TODO: Add more examples
+</code></pre>
+
+<h3>Grep logs</h3>
+
+<p>To find logs with <code>'some'</code> in body:</p>
+
+<pre><code>echo.logs.grep 'some' # =&gt; [{ body: ['Something'] }, { body: ['I want some LSD.']}]
+</code></pre>
+
+<h3>Get logs by time</h3>
+
+<pre><code>TODO: Add more examples
+</code></pre>
+
+<h3>Write plugins for logs</h3>
+
+<pre><code>TODO: Add more examples
+</code></pre>
+
+<h3>Define custom levels</h3>
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">.</span><span class="nx">shitHappened</span> <span class="c1"># =&gt; undefined</span>
+<span class="nx">echo</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="nv">shitHappened: </span><span class="mi">8</span><span class="p">)</span>
+<span class="nx">echo</span><span class="p">.</span><span class="nx">shitHappened</span> <span class="c1"># Log function with level of importance equal to 8</span>
+</pre>
+</div>
+
+
+<h3>Callbacks</h3>
+
+<pre><code>TODO: Add examples
+</code></pre>
+
+<h3>Async</h3>
+
+<pre><code>TODO: Add examples
+</code></pre>
+
+<h3>Add trace to log (limited support)</h3>
+
+<pre><code>TODO: Add examples
+</code></pre>
+
+<h3>Output to browser console</h3>
+
+<pre><code>TODO: Add examples
+</code></pre>
+
+<h3>Currying</h3>
+
+<p>You can create curried function with predefined options, like <code>level</code>, <code>namespacePrefix</code> etc</p>
+
+<h3>Dump log</h3>
+
+<p>You can dump logs:</p>
+
+<pre><code>$.post \
+  '/logs',
+  log: echo.dump()
+</code></pre>
+
+<p>If you're using an older browser which doesn't have native JSON support (i.e. IE 7), you'll need to include <a href="https://github.com/douglascrockford/JSON-js/blob/master/json2.js"><code>json2.js</code></a> which adds legacy support.</p>
+
+<h3>Dump level</h3>
+
+<p>By default dump level is <code>1</code>:</p>
+
+<pre><code>echo.dump(0)
+# =&gt; [ { body: [1, 2, "[object Object]"], …
+
+echo.dump()
+# =&gt; [ { body: [1, 2, { 1, 2, "[object Object]" }], …
+
+echo.dump(2)
+# =&gt; [ { body: [1, 2, { 1, 2, { 1, 2, "[object Object]" } }], …
+
+# etc
+</code></pre>
+
+<p>If you want to get deep dump to serialise objects with circular references you should include <a href="https://github.com/douglascrockford/JSON-js/blob/master/cycle.js"><code>cycle.js extension to the JSON object</code></a> and pass <code>-1</code> as level (be carefully, making dump may take a time).</p>
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">.</span><span class="nx">dump</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<h3>Restore dump</h3>
+
+<p>And restore dump with initializer:</p>
+
+<div class="highlight">
+<pre><span class="nv">e = </span><span class="nx">Echo</span><span class="p">(</span><span class="nx">dump</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<p>… or via call restore:</p>
+
+<div class="highlight">
+<pre><span class="nx">echo</span><span class="p">.</span><span class="nx">restore</span><span class="p">(</span><span class="nx">dump</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<h3>Store log dumps in local storage</h3>
+
+<pre><code>TODO: Add examples
+</code></pre>
+
+<h3>Cleanup logs</h3>
+
+<pre><code>TODO: Add examples
+</code></pre>
+
+<h2>Changelog</h2>
+
+<p>This project uses <a href="http://semver.org/">Semantic Versioning</a> for release numbering.</p>
+
+<p>Currently this project in active development but no any releases yet.</p>
+
+<h2>Contributors and sponsorship</h2>
+
+<p>Idea and code by <a href="https://github.com/kossnocorp" class="user-mention">@kossnocorp</a> and other <a href="https://github.com/kossnocorp/echo/contributors">contributors</a>.</p>
+
+<p>Initialy sponsored by <a href="http://evilmartians.com/">Evil Martians</a> special for <a href="http://wannafun.ru/">Wannafun</a>.</p>
+
+<h2>License</h2>
+
+<p>The MIT License</p>
+
+<p>Copyright (c) 2012 Sasha Koss</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/kossnocorp">kossnocorp</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-17373037-3");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>

@@ -49,6 +49,83 @@ echo.log(['trololo'])
 ]
 ```
 
+### Print
+
+By default logs is don't print to developer console (Web Inspector, Firebug etc).
+
+If you want to log with print you should add `print: true` key:
+
+``` coffeescript
+echo('', print: true)
+```
+
+If you want to setup `print: true` for specific levels:
+
+``` coffeescript
+echo.definePrint
+  0:     false
+  3:     true
+  error: true
+```
+
+Or you can you advanced rules:
+
+```
+all                                       - Set true to all levels.
+only                                      - Set true to only …
+except                                    - Set true to all except …
+greaterThan (alias: gt)                   - Greater than.
+greaterThanOrEqualTo (aliases: gte, gteq) - Greater than or equal to.
+lessThan (alias: lt)                      - Less than.
+lessThanOrEqualTo (aliases: lte, lteq)    - Less than or equal to.
+```
+
+#### Examples
+
+Always print:
+
+``` coffeescript
+echo.definePrint('all')
+
+# equal to
+
+echo.definePrint(all: true)
+
+# equal to
+
+echo.defaultOptions.print = true
+```
+
+Only for specific levels:
+
+``` coffeescript
+echo.definePrint('only', [1, 'warn'])
+```
+
+Print log with level great than 4 (but 7 and 9):
+
+``` coffeescript
+echo.definePrint
+  gt:     4
+  except: [7, 9]
+
+# equal to
+
+echo.definePrint
+  gt: 4
+  7:  false
+  9:  false
+
+# equal to
+
+echo.definePrint
+  gt:     4
+  except: 7
+  9:      false
+```
+
+etc
+
 ### Log objects (with clone)
 
 All objects and arrays clone on log:

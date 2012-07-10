@@ -126,6 +126,19 @@ echo.definePrint
 
 etc
 
+#### Print function
+
+By default Echoes use `console.log` (if defined) for logs with level `0`, `console.info` for `1`, `console.warn` for `2`, `console.error` for `3`.
+
+But you can setup you own print function:
+
+``` coffeescript
+ownPrint = (log, options) ->
+  alert(log.body)
+
+echo.setPrintFunction(ownPrint)
+```
+
 ### Log objects (with clone)
 
 All objects and arrays clone on log:

@@ -222,7 +222,7 @@ TODO: Add more examples
 
 To find logs with `'some'` in body:
 
-```
+``` coffeescript
 echo.logs.grep 'some' # => [{ body: ['Something'] }, { body: ['I want some LSD.']}]
 ```
 
@@ -278,7 +278,7 @@ You can create curried function with predefined options, like `level`, `namespac
 
 You can dump logs:
 
-```
+``` coffeescript
 $.post \
   '/logs',
   log: echo.dump()
@@ -290,7 +290,7 @@ If you're using an older browser which doesn't have native JSON support (i.e. IE
 
 By default dump level is `1`:
 
-```
+``` coffeescript
 echo.dump(0)
 # => [ { body: [1, 2, "[object Object]"], …
 

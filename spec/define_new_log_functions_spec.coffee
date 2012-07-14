@@ -10,6 +10,12 @@ chai.use(sinonChai)
 
 describe 'Define new log functions', ->
 
+  e = null
+
+  beforeEach ->
+    e = Echo()
+
+
   describe '#curry()', ->
 
     it 'should be defined', ->

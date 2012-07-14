@@ -42,6 +42,7 @@ describe 'Dump and restore', ->
 
     it 'should restore logs from dump'
 
+
   describe 'restore on initialization', ->
 
     it 'should restore log on initialization'

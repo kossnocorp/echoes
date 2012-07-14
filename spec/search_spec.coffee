@@ -16,11 +16,13 @@ describe 'Search logs', ->
     e = Echo()
 
 
-  it 'should be defined', ->
-    e.logs.should.exist
+  describe 'logs object', ->
 
-  it 'should be object', ->
-    e.logs.should.be.a 'object'
+    it 'should be defined', ->
+      e.logs.should.exist
+
+    it 'should be object', ->
+      e.logs.should.be.a 'object'
 
 
   describe '#first()', ->
@@ -54,6 +56,7 @@ describe 'Search logs', ->
       allLogs[0].body[0].should.eq 'test1'
       allLogs[1].body[0].should.eq 'test2'
 
+
   describe '#grep()', ->
 
     it 'should be defined'
@@ -63,5 +66,3 @@ describe 'Search logs', ->
     it 'should returns array'
 
     it 'should grep string in logs'
-
-

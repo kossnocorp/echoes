@@ -221,6 +221,7 @@ Echo = (dump) ->
       echo.restore(dump)
   ###
   echo.restore = (dump) ->
+    logs = _.union(logs, if _(dump).isString() then JSON.parse(dump) else dump)
 
   # Returns carried function
   echo.curry = (possibleCurriedOptions...) ->

@@ -1,7 +1,7 @@
 GIT
-  remote: https://github.com/ruby-talks/talks.git
-  revision: 9ef9791eaa89ed83aebacd5be988c848d6532bdd
-  ref: 9ef9791eaa89ed83aebacd5be988c848d6532bdd
+  remote: https://github.com/kossnocorp/talks.git
+  revision: 0754c0671de9bafd00640eec17bc5f1bd4a19373
+  ref: 0754c06
   specs:
     talks (0.3.1)
       notifier

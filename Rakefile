@@ -18,7 +18,8 @@ task :test do
     failed_count, total_count = error_match.captures
 
     message = "#{failed_count} of #{total_count} tests failed"
-  else
+
+  elsif stdout_strings_match = stdout_strings.match(/(\d+) tests complete/)
     complete_count, = stdout_strings.match(/(\d+) tests complete/).captures
 
     if pending_matches = stdout_strings.match(/(\d+) tests pending/)
@@ -27,7 +28,10 @@ task :test do
 
     message = "#{complete_count} tests complete"
     message += ", #{pending_count} tests pending" if pending_count
+
+  else
+    message = 'Something wrong, check console output.'
   end
 
-  Talks.say message, notify: true
+  Talks.say message, notify: true, detach: true
 end

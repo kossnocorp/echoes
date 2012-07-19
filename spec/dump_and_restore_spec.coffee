@@ -10,6 +10,42 @@ chai.use(sinonChai)
 
 describe 'Dump and restore', ->
 
+  deepObject =
+    origin:
+      a:
+        b:
+          c: 1
+          d:
+            e:
+              f: [2, 3]
+              g: 4
+      h: 5
+    1:
+      a: '[object]'
+      h: 5
+    2:
+      a:
+        b:
+          c: 1
+          d: '[object]'
+      h: 5
+    3:
+      a:
+        b:
+          c: 1
+          d:
+            e: '[object]'
+      h: 5
+    4:
+      a:
+        b:
+          c: 1
+          d:
+            e:
+              f: '[array]'
+              g: 4
+      h: 5
+
   e = null
 
   beforeEach ->
@@ -33,16 +69,45 @@ describe 'Dump and restore', ->
       restored[0].body[0].should.eq 'trololo'
       restored[1].body[0].should.eq 'qwerty'
 
+    it 'should dump with passed deep level (by default is 1)', ->
+      e(deepObject.origin)
+      JSON.restore(e.dump())[0].should.be.eql deepObject[1]
+      JSON.restore(e.dump(1))[0].should.be.eql deepObject[1]
+      JSON.restore(e.dump(2))[0].should.be.eql deepObject[2]
+      JSON.restore(e.dump(3))[0].should.be.eql deepObject[3]
+      JSON.restore(e.dump(4))[0].should.be.eql deepObject[4]
+      JSON.restore(e.dump(5))[0].should.be.eql deepObject.origin
+      JSON.restore(e.dump(6))[0].should.be.eql deepObject.origin
+
 
   describe '#restore()', ->
 
-    it 'should be defined'
+    it 'should be defined', ->
+      e.restore.should.exist
 
-    it 'should be function'
+    it 'should be function', ->
+      e.restore.should.be.a 'function'
 
-    it 'should restore logs from dump'
+    it 'should restore logs from dump', ->
+      eh = Echo()
+      eh('Hello')
+      eh('There')
+      eh('!')
+      e.restore(eh.dump())
+      allLogs = e.logs.all()
+      allLogs[0].body[0].should.eq 'Hello'
+      allLogs[1].body[0].should.eq 'There'
+      allLogs[2].body[0].should.eq '!'
 
 
   describe 'restore on initialization', ->
 
-    it 'should restore log on initialization'
+    it 'should restore log on initialization', ->
+      e('Hello')
+      e('There')
+      e('!')
+      eh = Echo(e.dump())
+      allLogs = eh.logs.all()
+      allLogs[0].body[0].should.eq 'Hello'
+      allLogs[1].body[0].should.eq 'There'
+      allLogs[2].body[0].should.eq '!'

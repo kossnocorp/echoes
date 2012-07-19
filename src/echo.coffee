@@ -5,7 +5,7 @@
    \ \_____\  \ \_____\  \ \_\ \_\  \ \_____\  \ \_____\  \/\_____\
     \/_____/   \/_____/   \/_/\/_/   \/_____/   \/_____/   \/_____/
 
-  Echoes.js ~ v0.0.0 ~ https://github.com/kossnocorp/echoes
+  Echoes.js ~ v0.1.0 ~ https://github.com/kossnocorp/echoes
 
   Need something for logging in JavaScript?
   Want to powerful and simple solution? Echo.js is your choose, bro!

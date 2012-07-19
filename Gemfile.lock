@@ -1,14 +1,22 @@
+GIT
+  remote: https://github.com/ruby-talks/talks.git
+  revision: 9ef9791eaa89ed83aebacd5be988c848d6532bdd
+  ref: 9ef9791eaa89ed83aebacd5be988c848d6532bdd
+  specs:
+    talks (0.3.1)
+      notifier
+
 GEM
   remote: https://rubygems.org/
   specs:
     ffi (1.0.11)
-    growl (1.0.3)
     guard (1.0.3)
       ffi (>= 0.5.0)
       thor (>= 0.14.6)
     guard-rake (0.0.7)
       guard
       rake
+    notifier (0.2.1)
     rake (0.9.2.2)
     thor (0.15.2)
 
@@ -16,6 +24,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  growl
   guard
   guard-rake
+  talks!

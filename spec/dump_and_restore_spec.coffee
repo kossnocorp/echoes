@@ -25,18 +25,22 @@ describe 'Dump and restore', ->
       h: 5
     2:
       a:
+        b: '[object]'
+      h: 5
+    3:
+      a:
         b:
           c: 1
           d: '[object]'
       h: 5
-    3:
+    4:
       a:
         b:
           c: 1
           d:
             e: '[object]'
       h: 5
-    4:
+    5:
       a:
         b:
           c: 1
@@ -71,13 +75,14 @@ describe 'Dump and restore', ->
 
     it 'should dump with passed deep level (by default is 1)', ->
       e(deepObject.origin)
-      JSON.restore(e.dump())[0].should.be.eql deepObject[1]
-      JSON.restore(e.dump(1))[0].should.be.eql deepObject[1]
-      JSON.restore(e.dump(2))[0].should.be.eql deepObject[2]
-      JSON.restore(e.dump(3))[0].should.be.eql deepObject[3]
-      JSON.restore(e.dump(4))[0].should.be.eql deepObject[4]
-      JSON.restore(e.dump(5))[0].should.be.eql deepObject.origin
-      JSON.restore(e.dump(6))[0].should.be.eql deepObject.origin
+      JSON.parse(e.dump())[0].body[0].should.be.deep.eql deepObject[1]
+      JSON.parse(e.dump(1))[0].body[0].should.be.deep.eql deepObject[1]
+      JSON.parse(e.dump(2))[0].body[0].should.be.deep.eql deepObject[2]
+      JSON.parse(e.dump(3))[0].body[0].should.be.deep.eql deepObject[3]
+      JSON.parse(e.dump(4))[0].body[0].should.be.deep.eql deepObject[4]
+      JSON.parse(e.dump(5))[0].body[0].should.be.deep.eql deepObject[5]
+      JSON.parse(e.dump(6))[0].body[0].should.be.deep.eql deepObject.origin
+      JSON.parse(e.dump(7))[0].body[0].should.be.deep.eql deepObject.origin
 
 
   describe '#restore()', ->

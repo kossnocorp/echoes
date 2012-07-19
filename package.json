@@ -21,5 +21,9 @@
 
   "engine": {
     "node": ">=0.4"
+  },
+
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha ./spec/*_spec.coffee --compilers coffee:coffee-script -R spec -c"
   }
 }

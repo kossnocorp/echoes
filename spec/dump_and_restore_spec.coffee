@@ -104,6 +104,17 @@ describe 'Dump and restore', ->
       allLogs[1].body[0].should.eq 'There'
       allLogs[2].body[0].should.eq '!'
 
+    it 'should restore logs from JSON', ->
+      eh = Echo()
+      eh('Hello')
+      eh('There')
+      eh('!')
+      e.restore(JSON.parse(eh.dump()))
+      allLogs = e.logs.all()
+      allLogs[0].body[0].should.eq 'Hello'
+      allLogs[1].body[0].should.eq 'There'
+      allLogs[2].body[0].should.eq '!'
+
 
   describe 'restore on initialization', ->
 

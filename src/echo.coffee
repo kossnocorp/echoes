@@ -147,16 +147,26 @@ Echo = (dump) ->
     processOptions \
       optionsWithDefaults(options)
 
+  ###
+    Internal: Print to console if needed
+  ###
+  printIfNeeded = (body, options) ->
+    if console?.log? and options.print
+      console.log.apply(console, body)
+
   # Main log function
   echo = (possibleBody...) ->
     [body, options] = extractBodyAndOptions(possibleBody)
 
     finalOptions = assembleOptions(options)
+    finalBody = processBody(body, finalOptions)
+
+    printIfNeeded(finalBody, finalOptions)
 
     logs.push \
       _({}).extend \
         finalOptions,
-        body:      processBody(body, finalOptions)
+        body:      finalBody
         timestamp: (new Date()).getTime()
 
   # Logs API

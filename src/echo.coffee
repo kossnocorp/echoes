@@ -163,6 +163,7 @@ Echo = (dump) ->
 
   # Default options
   echo.defaultOptions =
+    print:           false
     clone:           true
     level:           0
     namespacePrefix: ''

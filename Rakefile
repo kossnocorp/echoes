@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'open3'
-require 'growl'
+require 'talks'
 
 task :test do
  stdin, stdout, stderr = Open3.popen3 \
@@ -17,7 +17,7 @@ task :test do
 
     failed_count, total_count = error_match.captures
 
-    Growl.notify "#{failed_count} of #{total_count} tests failed"
+    message = "#{failed_count} of #{total_count} tests failed"
   else
     complete_count, = stdout_strings.match(/(\d+) tests complete/).captures
 
@@ -25,11 +25,9 @@ task :test do
       pending_count, = pending_matches.captures
     end
 
-    Growl.notify "#{complete_count} tests complete" + if pending_count
-      ", #{pending_count} tests pending"
-    else
-      ''
-    end
+    message = "#{complete_count} tests complete"
+    message += ", #{pending_count} tests pending" if pending_count
   end
 
+  Talks.say message, notify: true
 end

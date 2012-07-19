@@ -1,4 +1,4 @@
-# Echoes.js — comfort and elegance (while digging in logs)
+# Echoes.js — comfort and elegance (while digging in logs) [![Build Status](https://secure.travis-ci.org/kossnocorp/echoes.png?branch=master)](http://travis-ci.org/kossnocorp/echoes)
 
 Need something for logging in JavaScript? Want to powerful and simple solution?
 

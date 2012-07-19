@@ -25,6 +25,9 @@ Echo = (dump) ->
   # Internal: String levels
   stringLevels = {}
 
+  # Internal: Print rules
+  printRules = []
+
   ###
     Internal: Determine is passed variable is options object.
 
@@ -148,10 +151,26 @@ Echo = (dump) ->
       optionsWithDefaults(options)
 
   ###
+    Interval: Is need to print?
+  ###
+  isNeedToPrint = (options) ->
+    return unless console?.log?
+
+    if options.print
+      true
+    else
+      result = false
+
+      _(printRules).each (rule) ->
+        result = true if rule.key == options.level and rule.value
+
+      result
+
+  ###
     Internal: Print to console if needed
   ###
   printIfNeeded = (body, options) ->
-    if console?.log? and options.print
+    if isNeedToPrint(options)
       console.log.apply(console, body)
 
   # Main log function
@@ -188,6 +207,14 @@ Echo = (dump) ->
     id:              ''
 
   ###
+    Public: Define default print key value for specific levels
+  ###
+  echo.definePrint = (possibleKey, possibleValue) ->
+    printRules.push
+      key:   possibleKey
+      value: possibleValue
+
+  ###
     Internal: Clone with deep level
   ###
   cloneWithDeep = (obj, deep, level = 0) ->
@@ -222,6 +249,9 @@ Echo = (dump) ->
   ###
   echo.restore = (dump) ->
     logs = _.union(logs, if _(dump).isString() then JSON.parse(dump) else dump)
+
+  # Restore dump passed to constructor
+  echo.restore(dump) if dump?
 
   # Returns carried function
   echo.curry = (possibleCurriedOptions...) ->

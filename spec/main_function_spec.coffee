@@ -64,3 +64,5 @@ describe 'Main log function', ->
   it 'should join namespacePrefix, namespace and id and save as cid', ->
     e(namespacePrefix: 'app', namespace: 'test', id: 42)
     e.logs.first().cid.should.eq 'app.test.42'
+
+  it 'should filter options saved to log'

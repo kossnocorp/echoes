@@ -18,9 +18,15 @@ describe 'Print logs to console', ->
 
   describe 'print: true', ->
 
-    it "should print with console.log if it's defined"
+    it "should print with console.log if it's defined", ->
+      sinon.spy(console, 'log')
+      e('Hello there!', print: true)
+      console.log.should.have.been.calledWith('Hello there!')
+      e('Hello', 'there!', print: true)
+      console.log.should.have.been.calledWith('Hello', 'there!')
+      console.log.restore()
 
-    it "should print with console.info if it's defined, level is 1 and defineDefaults is called"
+    it "should print with console.info if it's defined, level is 1 and defineDefaults is called", ->
 
     it "should print with console.warn if it's defined, level is 2 and defineDefaults is called"
 

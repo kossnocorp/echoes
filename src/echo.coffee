@@ -187,9 +187,40 @@ Echo = (dump) ->
     namespace:       ''
     id:              ''
 
+  ###
+    Internal: Clone with deep level
+  ###
+  cloneWithDeep = (obj, deep, level = 0) ->
+    clonedObj = if _(obj).isArray() then [] else {}
+
+    _(obj).each (value, key) ->
+      clonedObj[key] = if _(value).isObject() or _(value).isArray()
+        if deep > level
+          cloneWithDeep(value, deep, level + 1)
+        else if _(value).isArray()
+          '[array]'
+        else
+          '[object]'
+      else
+        value
+
+    clonedObj
+
+  # Internal: Body deep level
+  BODY_DEEP_LEVEL = 2
+
   # Returns dumped
-  echo.dump = ->
-    JSON.stringify(logs)
+  echo.dump = (deep = 1) ->
+    JSON.stringify(cloneWithDeep(logs, deep + BODY_DEEP_LEVEL))
+
+  ###
+    Public: Restore dump
+
+    Examples
+
+      echo.restore(dump)
+  ###
+  echo.restore = (dump) ->
 
   # Returns carried function
   echo.curry = (possibleCurriedOptions...) ->

@@ -44,7 +44,7 @@ describe 'Print logs to console', ->
     it 'should define print value for specific levels', ->
       e.definePrint(3, true)
       sinon.spy(console, 'log')
-      e('Hello there!')
+      e('Hello there!', level: 3)
       console.log.should.have.been.calledWith('Hello there!')
       console.log.restore()
 

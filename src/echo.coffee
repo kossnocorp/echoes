@@ -22,6 +22,9 @@ Echo = (dump) ->
   # Internal: Logs storage
   logs = []
 
+  # Internal: String levels
+  stringLevels = {}
+
   ###
     Internal: Determine is passed variable is options object.
 
@@ -128,6 +131,10 @@ Echo = (dump) ->
 
     newOptions = _(options).clone()
 
+    # Convert string level to numeric
+    if _(newOptions.level).isString()
+      newOptions.level = stringLevels[newOptions.level] || 0
+
     delete newOptions[key] for key in CUT_OPTIONS
 
     _({})
@@ -187,11 +194,27 @@ Echo = (dump) ->
           body,
           [_({}).extend(curriedOptions, options)]
 
-  # Define new level
-  echo.define = (possibleKey, possibleLevel) ->
-    defineLevel = (key, level) ->
-      echo[key] = echo.curry(level: level)
+  ###
+    Internal: Define level
 
+    Examples
+
+      defineLevel('warn', 2)
+  ###
+  defineLevel = (key, level) ->
+    stringLevels[key] = level
+    echo[key] = echo.curry(level: level)
+
+  ###
+    Public: Define new level(s)
+
+    Examples
+
+      echo.define(info: 1, warn: 2)
+
+      echo.define('error', 3)
+  ###
+  echo.define = (possibleKey, possibleLevel) ->
     if _(possibleKey).isString()
       defineLevel(possibleKey, possibleLevel)
     else

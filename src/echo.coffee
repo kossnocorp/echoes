@@ -154,8 +154,6 @@ Echo = (dump) ->
     Interval: Is need to print?
   ###
   isNeedToPrint = (options) ->
-    return unless console?.log?
-
     if options.print
       true
     else
@@ -171,7 +169,13 @@ Echo = (dump) ->
   ###
   printIfNeeded = (body, options) ->
     if isNeedToPrint(options)
-      console.log.apply(console, body)
+
+      _('info warn error'.split(' ')).each (level) ->
+        if stringLevels[level] == options.level and console?[level]?
+          console[level].apply(console, body)
+          return
+
+      console.log.apply(console, body) if console?.log?
 
   # Main log function
   echo = (possibleBody...) ->

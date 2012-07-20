@@ -13,7 +13,7 @@ task :test do
   stderr_strings = stderr_array.to_s
 
   if stderr_strings and
-     error_match = stderr_strings.match(/(\d+) of (\d+) tests failed/)
+    error_match = stderr_strings.match(/(\d+) of (\d+) tests failed/)
 
     failed_count, total_count = error_match.captures
 

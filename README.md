@@ -1,7 +1,7 @@
 # ![Echoes.js](http://f.cl.ly/items/441H2g2D0k0q26122L20/echoes_logo.png)
 ## Advanced JavaScript logging framework for web- and Node.js applications
 
-Build status by Travic CI: [![Build Status](https://secure.travis-ci.org/kossnocorp/echoes.png?branch=master)](http://travis-ci.org/kossnocorp/echoes)
+[![Build Status](https://secure.travis-ci.org/kossnocorp/echoes.png?branch=master)](http://travis-ci.org/kossnocorp/echoes)
 
 ```
 TODO: Write short intro

@@ -1,7 +1,9 @@
 # Echoes.js [![Build Status](https://secure.travis-ci.org/kossnocorp/echoes.png?branch=master)](http://travis-ci.org/kossnocorp/echoes)
 ## Advanced JavaScript logging framework for web- and Node.js applications
 
-# TODO: Write short intro
+```
+TODO: Write short intro
+```
 
 ## Usage
 

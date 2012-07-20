@@ -65,4 +65,22 @@ describe 'Main log function', ->
     e(namespacePrefix: 'app', namespace: 'test', id: 42)
     e.logs.first().cid.should.eq 'app.test.42'
 
-  it 'should filter options saved to log'
+  it 'should filter options saved to log', ->
+    e \
+      1,
+      clone: true
+      level: 'trololo'
+      namespacePrefix: 'app'
+      namespace: 'test'
+      id: 42
+
+    log = e.logs.first()
+
+    logExample =
+      body:      [1]
+      level:     0
+      cid:       'app.test.42'
+      timestamp: log.timestamp
+
+    log.should.be.eql logExample
+

@@ -27,10 +27,38 @@ describe 'Print logs to console', ->
       console.log.restore()
 
     it "should print with console.info if it's defined, level is 1 and defineDefaults is called", ->
+      sinon.spy(console, 'info')
+      e.define(info: 1)
+      e('Hello there!', level: 1, print: true)
+      console.info.should.have.been.calledWith('Hello there!')
+      e('Hello there!', level: 'info', print: true)
+      console.info.should.have.been.calledWith('Hello there!')
+      console.info.restore()
 
-    it "should print with console.warn if it's defined, level is 2 and defineDefaults is called"
+    it "should print with console.warn if it's defined, level is 2 and defineDefaults is called", ->
+      sinon.spy(console, 'warn')
+      e.define(warn: 2)
+      e('Hello there!', level: 2, print: true)
+      console.warn.should.have.been.calledWith('Hello there!')
+      e('Hello there!', level: 'warn', print: true)
+      console.warn.should.have.been.calledWith('Hello there!')
+      console.warn.restore()
 
-    it "should print with console.error if it's defined, level is 3 and defineDefaults is called"
+    it "should print with console.error if it's defined, level is 3 and defineDefaults is called", ->
+      sinon.spy(console, 'error')
+      e.define(error: 3)
+      e('Hello there!', level: 3, print: true)
+      console.error.should.have.been.calledWith('Hello there!')
+      e('Hello there!', level: 'error', print: true)
+      console.error.should.have.been.calledWith('Hello there!')
+      console.error.restore()
+
+    it "should print with console.error if it's defined and passed numeric level is accord to defined error level", ->
+      sinon.spy(console, 'error')
+      e.define(error: 10)
+      e('Hello there!', level: 10, print: true)
+      console.error.should.have.been.calledWith('Hello there!')
+      console.error.restore()
 
 
   describe 'definePrint', ->

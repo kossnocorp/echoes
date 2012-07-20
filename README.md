@@ -1,4 +1,4 @@
-# Echoes.js [![Build Status](https://secure.travis-ci.org/kossnocorp/echoes.png?branch=master)](http://travis-ci.org/kossnocorp/echoes)
+# ![Echoes.js](http://f.cl.ly/items/2S3U1f0U3w060a2M1n3f/echoes_logo.png) [![Build Status](https://secure.travis-ci.org/kossnocorp/echoes.png?branch=master)](http://travis-ci.org/kossnocorp/echoes)
 ## Advanced JavaScript logging framework for web- and Node.js applications
 
 ```

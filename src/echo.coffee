@@ -184,7 +184,7 @@ Echo = (dump) ->
 
     logs.push \
       _({}).extend \
-        finalOptions,
+        _.pick(finalOptions, 'cid', 'level'),
         body:      finalBody
         timestamp: (new Date()).getTime()
 

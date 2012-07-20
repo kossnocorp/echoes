@@ -5,9 +5,71 @@
 TODO: Write short intro
 ```
 
-## Usage
+# API
 
-### Basic usage
+## Main function
+
+```
+TODO: Write examples
+```
+
+## #logs
+
+```
+TODO: Write examples
+```
+
+## #defaultOptions
+
+```
+TODO: Write examples
+```
+
+## #definePrint()
+
+```
+TODO: Write examples
+```
+
+## #dump
+
+```
+TODO: Write examples
+```
+
+## #restore
+
+```
+TODO: Write examples
+```
+
+## #curry
+
+```
+TODO: Write examples
+```
+
+## #define
+
+```
+TODO: Write examples
+```
+
+## #defineDefaults
+
+```
+TODO: Write examples
+```
+
+## #definePrint
+
+```
+TODO: Write examples
+```
+
+# Usage
+
+## Basic usage
 
 ``` coffeescript
 echo       'You'      # => Level of importance is 0
@@ -22,7 +84,7 @@ echo('Good news!', level: 3)       # => … is 3
 echo('Good news!', level: 'error') # => … is 3
 ```
 
-### Structure of logs:
+## Structure of logs:
 
 This code:
 
@@ -48,7 +110,7 @@ echo.log(['trololo'])
 ]
 ```
 
-### Print
+## Print
 
 By default logs is don't print to developer console (Web Inspector, Firebug etc).
 
@@ -79,7 +141,7 @@ lessThan (alias: lt)                      - Less than.
 lessThanOrEqualTo (aliases: lte, lteq)    - Less than or equal to.
 ```
 
-#### Examples
+### Examples
 
 Always print:
 
@@ -125,7 +187,7 @@ echo.definePrint
 
 etc
 
-#### Print function
+### Print function
 
 By default Echoes use `console.log` (if defined) for logs with level `0`, `console.info` for `1`, `console.warn` for `2`, `console.error` for `3`.
 
@@ -138,7 +200,7 @@ ownPrint = (log, options) ->
 echo.setPrintFunction(ownPrint)
 ```
 
-### Log objects (with clone)
+## Log objects (with clone)
 
 All objects and arrays clone on log:
 
@@ -156,7 +218,7 @@ loggedObj == obj     #=> false, because obj was cloned
 loggedObj.obj == obj #=> true, but not deeply
 ```
 
-### Save link to objects instead of clone
+## Save link to objects instead of clone
 
 If you want to save link to object instead of clone it, just add `clone: false` key to options:
 
@@ -168,13 +230,13 @@ echo obj, clone: false
 echo.logs.first().body[0] == obj #=> true
 ```
 
-### Write plugins for log process
+## Write plugins for log process
 
 ```
 TODO: Add examples
 ```
 
-### Indeficate object
+## Indeficate object
 
 There 3 ways to indeficate object:
 
@@ -189,7 +251,7 @@ echo 'Qwerty', namespacePrefix: 'app', namespace: 'controller', id: 42
 echo.logs.first().cid # => "app.controller.42"
 ```
 
-### Basic functions to get logs
+## Basic functions to get logs
 
 Get first record:
 
@@ -203,7 +265,7 @@ To get all logs (array of log objects):
 echo.logs.all()
 ```
 
-### Access logs by shortcut
+## Access logs by shortcut
 
 ``` coffeescript
 l = echo.logs
@@ -211,13 +273,13 @@ l.all()
 l.first()
 ```
 
-### Getters instead functions (works only in [...])
+## Getters instead functions (works only in [...])
 
 ```
 TODO: Add more examples
 ```
 
-### Grep logs
+## Grep logs
 
 To find logs with `'some'` in body:
 
@@ -225,19 +287,19 @@ To find logs with `'some'` in body:
 echo.logs.grep 'some' # => [{ body: ['Something'] }, { body: ['I want some LSD.']}]
 ```
 
-### Get logs by time
+## Get logs by time
 
 ```
 TODO: Add more examples
 ```
 
-### Write plugins for logs
+## Write plugins for logs
 
 ```
 TODO: Add more examples
 ```
 
-### Define custom levels
+## Define custom levels
 
 ``` coffeescript
 echo.shitHappened # => undefined
@@ -245,35 +307,35 @@ echo.define(shitHappened: 8)
 echo.shitHappened # Log function with level of importance equal to 8
 ```
 
-### Callbacks
+## Callbacks
 
 ```
 TODO: Add examples
 ```
 
-### Async
+## Async
 
 ```
 TODO: Add examples
 ```
 
-### Add trace to log (limited support)
+## Add trace to log (limited support)
 
 ```
 TODO: Add examples
 ```
 
-### Output to browser console
+## Output to browser console
 
 ```
 TODO: Add examples
 ```
 
-### Currying
+## Currying
 
 You can create curried function with predefined options, like `level`, `namespacePrefix` etc
 
-### Dump log
+## Dump log
 
 You can dump logs:
 
@@ -285,7 +347,7 @@ $.post \
 
 If you're using an older browser which doesn't have native JSON support (i.e. IE 7), you'll need to include [`json2.js`](https://github.com/douglascrockford/JSON-js/blob/master/json2.js) which adds legacy support.
 
-### Dump level
+## Dump level
 
 By default dump level is `1`:
 
@@ -308,7 +370,7 @@ If you want to get deep dump to serialise objects with circular references you s
 echo.dump(-1)
 ```
 
-### Restore dump
+## Restore dump
 
 And restore dump with initializer:
 
@@ -322,31 +384,33 @@ e = Echo(dump)
 echo.restore(dump)
 ```
 
-### Store log dumps in local storage
+## Store log dumps in local storage
 
 ```
 TODO: Add examples
 ```
 
-### Cleanup logs
+## Cleanup logs
 
 ```
 TODO: Add examples
 ```
 
-## Changelog
+# Changelog
 
 This project uses [Semantic Versioning](http://semver.org/) for release numbering.
 
 Currently this project in active development but no any releases yet.
 
-## Contributors and sponsorship
+# Contributors and sponsorship
 
-Idea and code by @kossnocorp and other [contributors](https://github.com/kossnocorp/echo/contributors).
+Idea and code by [@kossnocorp](http://koss.nocorp.me/).
+
+Check out full list of [contributors](https://github.com/kossnocorp/echo/contributors).
 
 Initialy sponsored by [Evil Martians](http://evilmartians.com/) special for [Wannafun](http://wannafun.ru/).
 
-## License
+# License
 
 The MIT License
 

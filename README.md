@@ -1,10 +1,7 @@
-# Echoes.js — comfort and elegance (while digging in logs) [![Build Status](https://secure.travis-ci.org/kossnocorp/echoes.png?branch=master)](http://travis-ci.org/kossnocorp/echoes)
+# Echoes.js [![Build Status](https://secure.travis-ci.org/kossnocorp/echoes.png?branch=master)](http://travis-ci.org/kossnocorp/echoes)
+## Advanced JavaScript logging framework for web- and Node.js applications
 
-Need something for logging in JavaScript? Want to powerful and simple solution?
-
-Want to know what happened in module X between 9:00 and 10:00? You wish to see all logs of exact object for last 15 minutes?
-
-Echoes.js is your choose, bro!
+# TODO: Write short intro
 
 ## Usage
 

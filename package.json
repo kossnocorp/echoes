@@ -2,7 +2,7 @@
   "name": "echoes",
   "version": "0.1.0",
   "author": "Sasha Koss <koss@nocorp.me>",
-  "description": "Need something for logging in JavaScript? Want to powerful and simple solution? Echo.js is your choose, bro!",
+  "description": "Advanced JavaScript logging framework for web- and Node.js applications",
 
   "dependencies": {
     "underscore": "1.3.3"

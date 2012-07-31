@@ -119,6 +119,17 @@ Echo = (dump) ->
   # Internal: Cut options: these options will be remove before save to log
   CUT_OPTIONS = 'namespacePrefix namespace id'.split(' ')
 
+  ###
+    Internal: Represent level as number
+  ###
+  representLevelAsNumber = (level) ->
+    if _(level).isString()
+      if /^\d+$/.test(level)
+        parseInt(level)
+      else
+        stringLevels[level] || 0
+    else
+      level
 
   ###
     Internal: Process options, remove unncessary, join cid etc
@@ -134,9 +145,7 @@ Echo = (dump) ->
 
     newOptions = _(options).clone()
 
-    # Convert string level to numeric
-    if _(newOptions.level).isString()
-      newOptions.level = stringLevels[newOptions.level] || 0
+    newOptions.level = representLevelAsNumber(newOptions.level)
 
     delete newOptions[key] for key in CUT_OPTIONS
 
@@ -160,7 +169,8 @@ Echo = (dump) ->
       result = false
 
       _(printRules).each (rule) ->
-        result = true if rule.key == options.level and rule.value
+        if representLevelAsNumber(rule.key) == options.level and rule.value
+          result = true
 
       result
 
@@ -211,12 +221,21 @@ Echo = (dump) ->
     id:              ''
 
   ###
+    Internal: push rule to print rules array
+  ###
+  pushPrintRule = (key, value) ->
+    # We should keep key as string and convert to number later,
+    # in traversing
+    printRules.push(key: key.toString(), value: value)
+
+  ###
     Public: Define default print key value for specific levels
   ###
   echo.definePrint = (possibleKey, possibleValue) ->
-    printRules.push
-      key:   possibleKey
-      value: possibleValue
+    if _(possibleKey).isObject()
+      pushPrintRule(key, value) for key, value of possibleKey
+    else
+      pushPrintRule(possibleKey, possibleValue)
 
   ###
     Internal: Clone with deep level

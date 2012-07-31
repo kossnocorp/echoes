@@ -28,6 +28,9 @@ Echo = (dump) ->
   # Internal: Print rules
   printRules = []
 
+  # Internal: Trim rules
+  trimRules = {}
+
   ###
     Internal: Determine is passed variable is options object.
 
@@ -187,6 +190,13 @@ Echo = (dump) ->
 
       console.log.apply(console, body) if console?.log?
 
+  ###
+    Internal: Trim logs by rules
+  ###
+  trimLogs = ->
+    if trimRules.count?
+      logs = _(logs).last(trimRules.count)
+
   # Main log function
   echo = (possibleBody...) ->
     [body, options] = extractBodyAndOptions(possibleBody)
@@ -201,6 +211,8 @@ Echo = (dump) ->
         _.pick(finalOptions, 'cid', 'level'),
         body:      finalBody
         timestamp: (new Date()).getTime()
+
+    trimLogs()
 
   # Logs API
   echo.logs =
@@ -329,6 +341,13 @@ Echo = (dump) ->
       info:  1
       warn:  2
       error: 3
+
+  ###
+    Pubic: Define trim options
+  ###
+  echo.defineTrim = (options) ->
+    for key, value of options
+      trimRules[key] = value
 
   # Return main log function
   echo

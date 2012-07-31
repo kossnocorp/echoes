@@ -82,17 +82,30 @@ describe 'Print logs to console', ->
         3: true
         5: true
         test: true
+
       sinon.spy(console, 'log')
       e('Hello there!', level: 3)
       console.log.should.have.been.calledWith('Hello there!')
+      console.log.restore()
+
+      sinon.spy(console, 'log')
       e('Hello there!', level: 5)
       console.log.should.have.been.calledWith('Hello there!')
+      console.log.restore()
+
+      sinon.spy(console, 'log')
       e('Hello there!', level: 'test')
       console.log.should.have.been.calledWith('Hello there!')
+      console.log.restore()
+
+      sinon.spy(console, 'log')
       e('Hello there!', level: 8)
       console.log.should.have.been.calledWith('Hello there!')
+      console.log.restore()
+
+      sinon.spy(console, 'log')
       e('Hello there!', level: 9)
-      console.log.should.have.not.been.called
+      console.log.should.not.have.been.called
       console.log.restore()
 
     it 'should set print true by default in `all: true` passed'

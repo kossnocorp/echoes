@@ -69,6 +69,38 @@ TODO: Write examples
 TODO: Write examples
 ```
 
+### #defineTrim()
+
+Echoes allow to you set trim rules via `defineTrim` function.
+
+In this example echoes will keep only 50 latests logs:
+
+``` javascript
+echo.defineTrim({ count: 50 });
+```
+
+To trim logs by date, you can use `date` and pass minutes. Echoes will keep logs for last 15 minutes:
+
+``` js
+echo.defineTrim({ date: 15 });
+```
+
+If you want to ignore `count` and `date` rules for specific levels you can pass except rule:
+
+``` js
+echo.defineTrim({ count: 50, except: [2, 3] });
+```
+
+It accepts number, array and strings:
+
+``` js
+echo.defineTrim({ count: 50, except: 5 });
+echo.defineTrim({ count: 50, except: 'test' });
+echo.defineTrim({ count: 50, except: ['warn', 3] });
+```
+
+#### Cut by count
+
 ## Usage
 
 ### Basic usage

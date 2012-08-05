@@ -195,7 +195,18 @@ Echo = (dump) ->
   ###
   trimLogs = ->
     if trimRules.count?
-      logs = _(logs).last(trimRules.count)
+      exceptions = _(logs)
+        .chain()
+        .first(logs.length - trimRules.count)
+        .map (log) ->
+          for level in _([trimRules.except]).flatten()
+            if log.level == representLevelAsNumber(level)
+              return log
+          null
+        .compact()
+        .value()
+
+      logs = _.union(exceptions, _(logs).last(trimRules.count))
 
   # Main log function
   echo = (possibleBody...) ->

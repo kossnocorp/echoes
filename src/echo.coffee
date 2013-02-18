@@ -184,11 +184,11 @@ Echo = (dump) ->
     if isNeedToPrint(options)
 
       _('info warn error'.split(' ')).each (level) ->
-        if stringLevels[level] == options.level and console?[level]?
+        if stringLevels[level] == options.level and console?[level]? and typeof console[level] is 'function'
           console[level].apply(console, body)
           return
 
-      console.log.apply(console, body) if console?.log?
+      console.log.apply(console, body) if console?.log? and typeof console.log is 'function'
 
   ###
     Internal: Trim logs by rules

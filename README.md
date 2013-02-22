@@ -114,7 +114,7 @@ echo.log(['trololo'])
 
 ### Print
 
-By default logs is don't print to developer console (Web Inspector, Firebug etc).
+By default logs are not printed to developer console (Web Inspector, Firebug etc).
 
 If you want to log with print you should add `print: true` key:
 
@@ -131,7 +131,7 @@ echo.definePrint
   error: true
 ```
 
-Or you can you advanced rules:
+Or you can set advanced rules:
 
 ```
 all                                       - Set true to all levels.
@@ -165,7 +165,7 @@ Only for specific levels:
 echo.definePrint('only', [1, 'warn'])
 ```
 
-Print log with level great than 4 (but 7 and 9):
+Print log with level great than 4 (except 7 and 9):
 
 ``` coffeescript
 echo.definePrint
@@ -193,7 +193,7 @@ etc
 
 By default Echoes use `console.log` (if defined) for logs with level `0`, `console.info` for `1`, `console.warn` for `2`, `console.error` for `3`.
 
-But you can setup you own print function:
+But you can setup your own print function:
 
 ``` coffeescript
 ownPrint = (log, options) ->
@@ -222,7 +222,7 @@ loggedObj.obj == obj #=> true, but not deeply
 
 ### Save link to objects instead of clone
 
-If you want to save link to object instead of clone it, just add `clone: false` key to options:
+If you want to save link to object instead of cloning it, just add `clone: false` key to options:
 
 ``` coffeescript
 obj = qwe: 1, asd: 2
@@ -238,9 +238,9 @@ echo.logs.first().body[0] == obj #=> true
 TODO: Add examples
 ```
 
-### Indeficate object
+### Identify object
 
-There 3 ways to indeficate object:
+There are 3 ways to identify object:
 
 * namespacePrefix
 * namespace
@@ -261,7 +261,7 @@ Get first record:
 echo.logs.first()
 ```
 
-To get all logs (array of log objects):
+Get all logs (array of log objects):
 
 ``` coffeescript
 echo.logs.all()
@@ -347,7 +347,7 @@ $.post \
   log: echo.dump()
 ```
 
-If you're using an older browser which doesn't have native JSON support (i.e. IE 7), you'll need to include [`json2.js`](https://github.com/douglascrockford/JSON-js/blob/master/json2.js) which adds legacy support.
+If you're using an old browser which doesn't have native JSON support (i.e. IE 7), you'll need to include [`json2.js`](https://github.com/douglascrockford/JSON-js/blob/master/json2.js) which adds legacy support.
 
 ### Dump level
 
@@ -366,7 +366,7 @@ echo.dump(2)
 ## etc
 ```
 
-If you want to get deep dump to serialise objects with circular references you should include [`cycle.js extension to the JSON object`](https://github.com/douglascrockford/JSON-js/blob/master/cycle.js) and pass `-1` as level (be carefully, making dump may take a time).
+If you want to get deep dump to serialize objects with circular references you should include [`cycle.js extension to the JSON object`](https://github.com/douglascrockford/JSON-js/blob/master/cycle.js) and pass `-1` as level (be careful, making dump may take a time).
 
 ``` coffeescript
 echo.dump(-1)
@@ -402,15 +402,15 @@ TODO: Add examples
 
 This project uses [Semantic Versioning](http://semver.org/) for release numbering.
 
-Currently this project in active development but no any releases yet.
+Currently this project is in active development but there are no releases yet.
 
 ## Contributors and sponsorship
 
 Idea and code by [@kossnocorp](http://koss.nocorp.me/).
 
-Check out full list of [contributors](https://github.com/kossnocorp/echo/contributors).
+Check out full list of [contributors](https://github.com/kossnocorp/echoes/contributors).
 
-Initialy sponsored by [Evil Martians](http://evilmartians.com/) special for [Wannafun](http://wannafun.ru/).
+Initialy sponsored by [Evil Martians](http://evilmartians.com/) specially for [Wannafun](http://wannafun.ru/).
 
 ## License
 

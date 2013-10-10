@@ -180,12 +180,16 @@ Echo = (dump) ->
   printIfNeeded = (body, options) ->
     if isNeedToPrint(options)
 
+      printed = false
+
       _('info warn error'.split(' ')).each (level) ->
-        if stringLevels[level] == options.level and console?[level]?
+        if stringLevels[level] == options.level and window.console and typeof console[level] is 'function'
           console[level].apply(console, body)
+          printed = true
           return
 
-      console.log.apply(console, body) if console?.log?
+      if window.console and typeof console.log is 'function' and not printed
+        console.log.apply(console, body)
 
   # Main log function
   echo = (possibleBody...) ->

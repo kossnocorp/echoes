@@ -1,23 +1,17 @@
-GIT
-  remote: https://github.com/kossnocorp/talks.git
-  revision: 0754c0671de9bafd00640eec17bc5f1bd4a19373
-  ref: 0754c06
-  specs:
-    talks (0.3.1)
-      notifier
-
 GEM
   remote: https://rubygems.org/
   specs:
-    ffi (1.0.11)
+    ffi (1.11.1)
     guard (1.0.3)
       ffi (>= 0.5.0)
       thor (>= 0.14.6)
     guard-rake (0.0.7)
       guard
       rake
-    notifier (0.2.1)
+    notifier (0.5.2)
     rake (0.9.2.2)
+    talks (0.4.1)
+      notifier
     thor (0.15.2)
 
 PLATFORMS
@@ -26,4 +20,4 @@ PLATFORMS
 DEPENDENCIES
   guard
   guard-rake
-  talks!
+  talks
